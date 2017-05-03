@@ -1,0 +1,29 @@
+[user]
+	name = Razzi Abuissa
+	email = razzi53@gmail.com
+[push]
+	default = current
+[credential]
+	helper = osxkeychain
+[alias]
+	start = !git init && hub create
+	wdiff = diff --color-words
+	cl = clone
+	unstage = reset HEAD --
+	new = diff --cached
+	current = rev-parse --abbrev-ref HEAD
+	root = rev-parse --show-toplevel
+	branch-exists = "!git show-ref --quiet refs/heads/$1 #"
+[core]
+	excludesfile = ~/.gitignore_global
+	editor=vim
+[pull]
+	rebase = true
+[rebase]
+	stat = true
+[filter "lfs"]
+	clean = git-lfs clean %f
+	smudge = git-lfs smudge %f
+	required = true
+[diff]
+	algorithm = patience

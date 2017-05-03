@@ -1,0 +1,8 @@
+git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d
+git clone https://github.com/razzius/.spacemacs.d ~/.spacemacs.d
+
+gln -sr .gitconfig ~
+gln -sr .hammerspoon ~
+
+defaults write com.apple.finder QuitMenuItem -bool true
+# todo echo /usr/local/bin/fish >> /etc/shells
