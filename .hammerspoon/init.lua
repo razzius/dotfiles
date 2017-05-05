@@ -1,4 +1,4 @@
-local fastKeyStroke = function(modifiers, character)
+fastKeyStroke = function(modifiers, character)
   local event = hs.eventtap.event
   event.newKeyEvent(modifiers, string.lower(character), true):post()
   event.newKeyEvent(modifiers, string.lower(character), false):post()
@@ -6,77 +6,114 @@ end
 
 alert = hs.alert.show
 
-send_escape = false
-last_mods = {}
-
-control_key_handler = function()
-  send_escape = false
-end
-
-control_key_timer = hs.timer.delayed.new(0.18, control_key_handler)
-
-control_handler = function(evt)
-  local new_mods = evt:getFlags()
-  if last_mods["cmd"] == new_mods["cmd"] then
-    return false
-  end
-  if not last_mods["cmd"] then
-    last_mods = new_mods
-    send_escape = true
-    control_key_timer:start()
-  else
-    last_mods = new_mods
-    control_key_timer:stop()
-    if send_escape then
-      return true, {
-        hs.eventtap.event.newKeyEvent({}, 'escape', true),
-        hs.eventtap.event.newKeyEvent({}, 'escape', false),
-      }
+len = function(t)
+    local length = 0
+    for k, v in pairs(t) do
+      length = length + 1
     end
+    return length
+end
+
+
+send_escape = false
+prev_modifiers = {}
+
+modifier_handler = function(evt)
+  -- evt:getFlags() holds the modifiers that are currently held down
+  local curr_modifiers = evt:getFlags()
+
+  if curr_modifiers["cmd"] and len(curr_modifiers) == 1 and len(prev_modifiers) == 0 then
+    -- We need this here because we might have had additional modifiers, which
+    -- we don't want to lead to an escape, e.g. [Ctrl + Cmd] —> [Cmd] —> [ ]
+    send_escape = true
+  elseif prev_modifiers["cmd"] and len(curr_modifiers) == 0 and send_escape then
+    send_escape = false
+    fastKeyStroke({}, "ESCAPE")
+  else
+    send_escape = false
   end
+    prev_modifiers = curr_modifiers
   return false
 end
 
-control_tap = hs.eventtap.new({hs.eventtap.event.types.flagsChanged}, control_handler)
-control_tap:start()
 
-other_handler = function(evt)
-  send_escape = false
+-- Call the modifier_handler function anytime a modifier key is pressed or released
+modifier_tap = hs.eventtap.new({hs.eventtap.event.types.flagsChanged}, modifier_handler)
+modifier_tap:start()
+
+
+-- If any non-modifier key is pressed, we know we won't be sending an escape
+non_modifier_tap = hs.eventtap.new({hs.eventtap.event.types.keyDown}, function(evt)
+    send_escape = false
   return false
-end
-
-other_tap = hs.eventtap.new({hs.eventtap.event.types.keyDown}, other_handler)
-other_tap:start()
+end)
+non_modifier_tap:start()
 
 slackBinding = hs.hotkey.new({"cmd"}, "`", function()
   fastKeyStroke({"alt", "shift"}, "Down")
 end)
 
-hs.hotkey.bind({"ctrl"}, "W", function()
+optionDeleteBinding = hs.hotkey.new({"ctrl"}, "W", function()
   fastKeyStroke({"alt"}, "delete")
 end)
-  
+
+rightBeforeDown = hs.hotkey.new({"ctrl"}, "J", function()
+    fastKeyStroke({}, "right")
+    fastKeyStroke({}, "return")
+end)
+
+hs.hotkey.bind({"ctrl"}, "V", function()
+    fastKeyStroke({"alt"}, "right")
+end)
+
+-- c-s-. is a no-op. Need some clever workaround
+-- hs.hotkey.bind({"ctrl"}, ".", function()
+--     fastKeyStroke({"shift"}, ".")
+-- end)
+
+hs.hotkey.bind({"ctrl"}, "Q", function()
+    fastKeyStroke({"alt"}, "left")
+end)
+
 hs.hotkey.bind({"ctrl"}, "J", function()
+  -- hs.eventtap.keyStroke({}, "return")
+  -- TODO fast keys send c-<ret> which goes to the webpage specified in Chrome directly
   fastKeyStroke({}, "return")
 end)
 
-hs.hotkey.bind({"cmd"}, "escape", function()
-  hs.alert.show("reloat")
+hs.hotkey.bind({"ctrl"}, "S", function()
+  fastKeyStroke({}, "right")
+  fastKeyStroke({}, "down")
+  fastKeyStroke({}, "return")
 end)
 
 function reloadConfig(files)
-    doReload = false
-    for _,file in pairs(files) do
-        if file:sub(-4) == ".lua" then
-            doReload = true
-        end
+  for _, file in pairs(files) do
+    if file:sub(-4) == ".lua" then
+      hs.reload()
+      return
     end
-    if doReload then
-        hs.reload()
-    end
+  end
 end
-configWatcher = hs.pathwatcher.new(os.getenv("HOME") .. "/.hammerspoon/", reloadConfig):start()
 
+
+configWatcher = hs.pathwatcher.new(os.getenv("HOME") .. "/.dotfiles/.hammerspoon/", reloadConfig):start()
+
+-- TODO make slack open if alt tabbing to it
 slackFilter = hs.window.filter.new('Slack')
 slackFilter:subscribe(hs.window.filter.windowFocused, function() slackBinding:enable() end)
 slackFilter:subscribe(hs.window.filter.windowUnfocused, function() slackBinding:disable() end)
+
+terminalFilter = hs.window.filter.new('ITerm2')
+terminalFilter:subscribe(hs.window.filter.windowUnfocused, function() optionDeleteBinding:enable() end)
+terminalFilter:subscribe(hs.window.filter.windowFocused, function() optionDeleteBinding:disable() end)
+
+chromeFilter = hs.window.filter.new('Google Chrome')
+chromeFilter:subscribe(hs.window.filter.windowFocused, function() rightBeforeDown:enable() end)
+chromeFilter:subscribe(hs.window.filter.windowUnfocused, function() rightBeforeDown:disable() end)
+
+hs.hotkey.bind({"ctrl", "alt", "shift"}, "S", function()
+  fastKeyStroke({}, '1')
+end)
+
+alert('Config loaded')
