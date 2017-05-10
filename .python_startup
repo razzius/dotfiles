@@ -1,0 +1,7 @@
+import os
+import pandas as pd
+import datetime
+
+
+def ss(uuid):
+    return SolarSite.objects.get(uuid=uuid)
