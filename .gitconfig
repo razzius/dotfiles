@@ -6,14 +6,18 @@
 [credential]
 	helper = osxkeychain
 [alias]
-	start = !git init && hub create
-	wdiff = diff --color-words
-	cl = clone
-	unstage = reset HEAD --
-	new = diff --cached
-	current = rev-parse --abbrev-ref HEAD
-	root = rev-parse --show-toplevel
+	base = "!echo master"
 	branch-exists = "!git show-ref --quiet refs/heads/$1 #"
+	cl = clone
+	current = rev-parse --abbrev-ref HEAD
+	fallback-to-base = "!if [ -n \"$1\" ]; then echo \"$1\"; else echo `git base`; fi #"
+	new = diff --cached
+	review = "!git diff $(git review-base \"$1\") #"
+	review-base = "!git merge-base `git current` $(git fallback-to-base \"$1\") #"
+	root = rev-parse --show-toplevel
+	start = !git init && hub create
+	unstage = reset HEAD --
+	wdiff = diff --color-words
 [core]
 	excludesfile = ~/.gitignore_global
 	editor=vim
