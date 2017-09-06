@@ -3,3 +3,9 @@ __pycache__
 .cache
 build
 dist
+node_modules
+TAGS
+.DS_Store
+.mypy_cache
+*.dump
+RAZZI_*
