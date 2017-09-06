@@ -39,3 +39,5 @@
 	algorithm = patience
 [commit]
 	verbose = true
+[rerere]
+	enabled = true
