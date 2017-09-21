@@ -17,10 +17,18 @@
 	review = "!git diff $(git review-base \"$1\") #"
 	review-base = "!git merge-base `git current` $(git fallback-to-base \"$1\") #"
 	root = rev-parse --show-toplevel
+	tree = log --graph --oneline --all
 	show-diff = show --pretty=format:%b
 	show-stash = stash show -p
 	start = !git init && hub create
 	stash-unstaged = stash --keep-index --include-untracked
+	stash-staged = "!\
+		git stash --keep-index > /dev/null &&\
+		git stash save > /dev/null &&\
+		git stash apply stash@{1} > /dev/null &&\
+		git stash show -p | git apply -R &&\
+		git stash drop stash@{1} > /dev/null \
+	"
 	unstage = reset HEAD --
 	wdiff = diff --color-words
 [core]
