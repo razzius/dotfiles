@@ -10,6 +10,7 @@
 	branch-exists = "!git show-ref --quiet refs/heads/$1 #"
 	cl = clone
 	clean = "!git clean -i"  # does not work...?
+	commit-id = "!git rev-parse @ | tr -d '\n'"
 	current = rev-parse --abbrev-ref HEAD
 	fallback-to-base = "!if [ -n \"$1\" ]; then echo \"$1\"; else git base; fi #"
 	last-commit-message = log -1 --pretty=%B
@@ -20,6 +21,7 @@
 	tree = log --graph --oneline --all
 	show-diff = show --pretty=format:%b
 	show-stash = stash show -p
+	status = status -sb
 	start = !git init && hub create
 	stash-unstaged = stash --keep-index --include-untracked
 	stash-staged = "!\
