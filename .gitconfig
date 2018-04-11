@@ -15,12 +15,14 @@
 	fallback-to-base = "!if [ -n \"$1\" ]; then echo \"$1\"; else git base; fi #"
 	last-commit-message = log -1 --pretty=%B
 	new = diff --cached
+	clean-untracked = clean -f -X
 	review = "!git diff $(git review-base \"$1\") #"
+	recommit = commit --amend
 	review-base = "!git merge-base `git current` $(git fallback-to-base \"$1\") #"
 	root = rev-parse --show-toplevel
+	to = checkout -B
 	tree = log --graph --oneline --all
 	show-diff = show --pretty=format:%b
-	show-stash = stash show -p
 	status = status -sb
 	start = !git init && hub create
 	stash-unstaged = stash --keep-index --include-untracked
@@ -33,6 +35,7 @@
 	"
 	unstage = reset HEAD --
 	wdiff = diff --color-words
+	wipe = "!git reset --hard && git clean -fd"
 [core]
 	excludesfile = ~/.gitignore_global
 	editor=vim
@@ -41,6 +44,9 @@
 	rebase = true
 [rebase]
 	stat = true
+  autostash = true
+[stash]
+  showpatch = true
 [filter "lfs"]
 	clean = git-lfs clean %f
 	smudge = git-lfs smudge %f
@@ -51,3 +57,5 @@
 	verbose = true
 [rerere]
 	enabled = true
+[advice]
+	detachedHead = false
