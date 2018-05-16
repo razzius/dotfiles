@@ -6,8 +6,11 @@
 [credential]
 	helper = osxkeychain
 [alias]
+	diff-from-start = "!git diff --color=always --stat $(git hash-object -t tree /dev/null)"
+	largest-files = "!git diff-from-start -- \"$1\" | sort -rk 3"  # TODO doesn't work
 	base = "!echo master"
 	branch-exists = "!git show-ref --quiet refs/heads/$1 #"
+	branch-updates = for-each-ref --sort='-authordate:iso8601' --format=' %(authordate:relative)%09%(refname:short)' refs/heads
 	cl = clone
 	clean = "!git clean -i"  # does not work...?
 	commit-id = "!git rev-parse @ | tr -d '\n'"
@@ -18,11 +21,13 @@
 	clean-untracked = clean -f -X
 	review = "!git diff $(git review-base \"$1\") #"
 	recommit = commit --amend
+	rename = branch -m
 	review-base = "!git merge-base `git current` $(git fallback-to-base \"$1\") #"
 	root = rev-parse --show-toplevel
 	to = checkout -B
 	tree = log --graph --oneline --all
 	show-diff = show --pretty=format:%b
+	staged-files = diff --name-only --cached
 	status = status -sb
 	start = !git init && hub create
 	stash-unstaged = stash --keep-index --include-untracked
@@ -44,7 +49,7 @@
 	rebase = true
 [rebase]
 	stat = true
-  autostash = true
+	autostash = true
 [stash]
   showpatch = true
 [filter "lfs"]
