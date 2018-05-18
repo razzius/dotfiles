@@ -1,26 +1,11 @@
 module.exports = {
-  "extends": "airbnb-base",
+  "extends": ["airbnb-base", "prettier"],
+  "parser": "babel-eslint",
   "rules": {
-    // enable additional rules
-    "quotes": ["error", "single"],
-    "semi": [2, "never"],
-
-    // override default options for rules from base configurations
-    "comma-dangle": ["error", "never"],
-    "no-cond-assign": ["error", "always"],
-
-    "no-console": "off",
-    "strict": 0
+    "no-console": "off"
   },
   "env": {
-    "browser": true,
-    "node": true
-  },
-  "settings": {
-    "import/resolver": {
-      "node": {
-        "extensions": [".js", ".ts"]
-      }
-    }
+     "browser": true,
+     "node": true
   }
 }
