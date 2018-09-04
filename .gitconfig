@@ -14,6 +14,7 @@
 	cl = clone
 	clean = "!git clean -i"  # does not work...?
 	commit-id = "!git rev-parse @ | tr -d '\n'"
+	commit-date = "!gdate -d @`git log -1 --format="%at"` -I"
 	current = rev-parse --abbrev-ref HEAD
 	fallback-to-base = "!if [ -n \"$1\" ]; then echo \"$1\"; else git base; fi #"
 	last-commit-message = log -1 --pretty=%B
@@ -21,6 +22,7 @@
 	clean-untracked = clean -f -X
 	review = "!git diff $(git review-base \"$1\") #"
 	recommit = commit --amend
+  reset-last = reset @^
 	rename = branch -m
 	review-base = "!git merge-base `git current` $(git fallback-to-base \"$1\") #"
 	root = rev-parse --show-toplevel
@@ -32,12 +34,14 @@
 	start = !git init && hub create
 	stash-unstaged = stash --keep-index --include-untracked
 	stash-staged = "!\
-		git stash --keep-index > /dev/null &&\
+		git stash --keep-index --include-untracked > /dev/null &&\
 		git stash save > /dev/null &&\
 		git stash apply stash@{1} > /dev/null &&\
 		git stash show -p | git apply -R &&\
 		git stash drop stash@{1} > /dev/null \
 	"
+  fixup-amend = "!git fixup `git staged-changes-commit`"
+  staged-changes-commit = "!git log -n 1 --pretty=format:%H -- `git diff --cached --name-only`"
 	unstage = reset HEAD --
 	wdiff = diff --color-words
 	wipe = "!git reset --hard && git clean -fd"

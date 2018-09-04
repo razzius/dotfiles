@@ -1,8 +1,11 @@
 module.exports = {
-  "extends": ["airbnb-base", "prettier"],
+  "extends": ["airbnb-base", "prettier", "plugin:react/recommended"],
   "parser": "babel-eslint",
   "rules": {
-    "no-console": "off"
+    "class-methods-use-this": [2, {"exceptMethods": ["render"]}],
+    "no-console": "off",
+    "no-new": "off",
+    "react/prop-types": "off"
   },
   "env": {
      "browser": true,

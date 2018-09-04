@@ -1,12 +1,34 @@
-import uuid
-import os
-import pandas as pd
-import datetime
-import requests
-import json
 import asyncio
+import datetime
+import json
+import math
+import os
+import random
+import re
+import uuid
 
-from dateutil.relativedelta import relativedelta
+try:
+    from dateutil.relativedelta import relativedelta
+    from dateutil.parser import parse
+except ImportError as e:
+    print('no dateutil: {e}'.format(e=e))
+
+try:
+    import requests
+except ImportError as e:
+    print('no requests: {e}'.format(e=e))
+
+try:
+    import pandas as pd
+except ImportError as e:
+    print('no pandas: {e}'.format(e=e))
+
+try:
+    import pytz
+except ImportError as e:
+    print('no pytz: {e}'.format(e=e))
 
 def ss(uuid):
     return SolarSite.objects.get(uuid=uuid)
+
+email = 'razzi53@gmail.com'
