@@ -1,8 +1,9 @@
 [user]
 	name = Razzi Abuissa
-	email = razzi53@gmail.com
+	email = razzi.abuissa@goodeggs.com
 [push]
 	default = current
+	followTags = true
 [credential]
 	helper = osxkeychain
 [alias]
@@ -18,15 +19,18 @@
 	current = rev-parse --abbrev-ref HEAD
 	fallback-to-base = "!if [ -n \"$1\" ]; then echo \"$1\"; else git base; fi #"
 	last-commit-message = log -1 --pretty=%B
+	discard = checkout
 	new = diff --cached
 	clean-untracked = clean -f -X
 	review = "!git diff $(git review-base \"$1\") #"
 	recommit = commit --amend
-  reset-last = reset @^
+	reset-last = reset @^
 	rename = branch -m
 	review-base = "!git merge-base `git current` $(git fallback-to-base \"$1\") #"
 	root = rev-parse --show-toplevel
-	to = checkout -B
+	repo-name = "!basename $(git remote get-url origin)"
+	# todo to should make branch if doesn't exist
+	to = checkout 
 	tree = log --graph --oneline --all
 	show-diff = show --pretty=format:%b
 	staged-files = diff --name-only --cached
@@ -40,14 +44,14 @@
 		git stash show -p | git apply -R &&\
 		git stash drop stash@{1} > /dev/null \
 	"
-  fixup-amend = "!git fixup `git staged-changes-commit`"
-  staged-changes-commit = "!git log -n 1 --pretty=format:%H -- `git diff --cached --name-only`"
+	fixup-amend = "!git fixup `git staged-changes-commit`"
+	staged-changes-commit = "!git log -n 1 --pretty=format:%H -- `git diff --cached --name-only`"
 	unstage = reset HEAD --
 	wdiff = diff --color-words
 	wipe = "!git reset --hard && git clean -fd"
 [core]
 	excludesfile = ~/.gitignore_global
-	editor=vim
+	editor=nvim
 	pager = diff-so-fancy | less --tabs=4 -RFX
 [pull]
 	rebase = true
@@ -55,7 +59,7 @@
 	stat = true
 	autostash = true
 [stash]
-  showpatch = true
+	showpatch = true
 [filter "lfs"]
 	clean = git-lfs clean %f
 	smudge = git-lfs smudge %f
