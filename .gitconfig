@@ -25,16 +25,23 @@
 	review = "!git diff $(git review-base \"$1\") #"
 	recommit = commit --amend
 	reset-last = reset @^
+	reset-submodule = submodule update
 	rename = branch -m
 	review-base = "!git merge-base `git current` $(git fallback-to-base \"$1\") #"
 	root = rev-parse --show-toplevel
-	repo-name = "!basename $(git remote get-url origin)"
+	repo-name = "!basename $(git remote get-url origin) .git"
 	# todo to should make branch if doesn't exist
-	to = checkout 
+	to = "!\
+		if git branch-exists $1; then \
+			git checkout $1; \
+		else \
+			git checkout -b $1; \
+		fi \
+	#"
 	tree = log --graph --oneline --all
 	show-diff = show --pretty=format:%b
 	staged-files = diff --name-only --cached
-	status = status -sb
+	stat = status -sb
 	start = !git init && hub create
 	stash-unstaged = stash --keep-index --include-untracked
 	stash-staged = "!\
