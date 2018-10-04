@@ -12,6 +12,7 @@
 	base = "!echo master"
 	branch-exists = "!git show-ref --quiet refs/heads/$1 #"
 	branch-updates = for-each-ref --sort='-authordate:iso8601' --format=' %(authordate:relative)%09%(refname:short)' refs/heads
+	branch-names = for-each-ref --format='%(refname:short)' refs/heads
 	cl = clone
 	clean = "!git clean -i"  # does not work...?
 	commit-id = "!git rev-parse @ | tr -d '\n'"
