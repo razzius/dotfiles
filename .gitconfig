@@ -19,7 +19,7 @@
 	current = rev-parse --abbrev-ref HEAD
 	fallback-to-base = "!if [ -n \"$1\" ]; then echo \"$1\"; else git base; fi #"
 	last-commit-message = log -1 --pretty=%B
-	discard = checkout
+	unchange = checkout
 	new = diff --cached
 	clean-untracked = clean -f -X
 	review = "!git diff $(git review-base \"$1\") #"
@@ -51,7 +51,7 @@
 		git stash show -p | git apply -R &&\
 		git stash drop stash@{1} > /dev/null \
 	"
-	fixup-amend = "!git fixup `git staged-changes-commit`"
+	fixup-amend = "!git commit --fixup `git staged-changes-commit` && GIT_EDITOR=true git rebase -i `git review-base`"
 	staged-changes-commit = "!git log -n 1 --pretty=format:%H -- `git diff --cached --name-only`"
 	unstage = reset HEAD --
 	wdiff = diff --color-words
@@ -65,6 +65,7 @@
 [rebase]
 	stat = true
 	autostash = true
+	autosquash = true
 [stash]
 	showpatch = true
 [filter "lfs"]
