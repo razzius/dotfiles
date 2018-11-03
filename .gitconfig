@@ -38,6 +38,7 @@
 			git checkout -b $1; \
 		fi \
 	#"
+	up = "!git fetch; git rebase origin/$(git base)"
 	tree = log --graph --oneline --all
 	show-diff = show --pretty=format:%b
 	staged-files = diff --name-only --cached
