@@ -2,7 +2,9 @@ git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d
 git clone https://github.com/razzius/.spacemacs.d ~/.spacemacs.d
 
 gln -sr .gitconfig ~
+gln -sr .tmux.conf ~
 
 defaults write com.apple.finder QuitMenuItem -bool true
 defaults write -g ApplePressAndHoldEnabled -bool false
-# todo echo /usr/local/bin/fish >> /etc/shells
+sudo sh -c 'echo /usr/local/bin/fish >> /etc/shells'
+chsh -s /usr/local/bin/fish

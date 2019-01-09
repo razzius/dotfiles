@@ -60,7 +60,6 @@
 	wipe = "!git reset --hard && git clean -fd"
 [core]
 	excludesfile = ~/.gitignore_global
-	editor=nvim
 	pager = diff-so-fancy | less --tabs=4 -RFX
 [pull]
 	rebase = true
