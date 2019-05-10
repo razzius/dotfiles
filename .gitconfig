@@ -7,31 +7,47 @@
 [credential]
 	helper = osxkeychain
 [alias]
-	diff-from-start = "!git diff --color=always --stat $(git hash-object -t tree /dev/null)"
-	largest-files = "!git diff-from-start -- \"$1\" | sort -rk 3"  # TODO doesn't work
+	# todo to should make branch if doesn't exist
 	base = "!echo master"
 	branch-exists = "!git show-ref --quiet refs/heads/$1 #"
-	branch-updates = for-each-ref --sort='-authordate:iso8601' --format=' %(authordate:relative)%09%(refname:short)' refs/heads
 	branch-names = for-each-ref --format='%(refname:short)' refs/heads
+	branch-updates = for-each-ref --sort='-authordate:iso8601' --format=' %(authordate:relative)%09%(refname:short)' refs/heads
 	cl = clone
 	clean = "!git clean -i"  # does not work...?
-	commit-id = "!git rev-parse @ | tr -d '\n'"
-	commit-date = "!gdate -d @`git log -1 --format="%at"` -I"
-	current = rev-parse --abbrev-ref HEAD
-	fallback-to-base = "!if [ -n \"$1\" ]; then echo \"$1\"; else git base; fi #"
-	last-commit-message = log -1 --pretty=%B
-	unchange = checkout
-	new = diff --cached
 	clean-untracked = clean -f -X
-	review = "!git diff $(git review-base \"$1\") #"
+	commit-date = "!gdate -d @`git log -1 --format="%at"` -I"
+	commit-id = "!git rev-parse @ | tr -d '\n'"
+	current = rev-parse --abbrev-ref HEAD
+	diff-from-start = "!git diff --color=always --stat $(git hash-object -t tree /dev/null)"
+	fallback-to-base = "!if [ -n \"$1\" ]; then echo \"$1\"; else git base; fi #"
+	fixup-amend = "!git commit --fixup `git staged-changes-commit` && GIT_EDITOR=true git rebase -i `git review-base`"
+  invert-staged = "!git stash-staged && git add . && git stash pop > /dev/null"
+	largest-files = "!git diff-from-start -- \"$1\" | sort -rk 3"  # TODO doesn't work
+	last-commit-message = log -1 --pretty=%B
+	new = diff --cached
 	recommit = commit --amend
+	rename = branch -m
+	repo-name = "!basename $(git remote get-url origin) .git"
 	reset-last = reset @^
 	reset-submodule = submodule update
-	rename = branch -m
+	review = "!git diff $(git review-base \"$1\") #"
 	review-base = "!git merge-base `git current` $(git fallback-to-base \"$1\") #"
 	root = rev-parse --show-toplevel
-	repo-name = "!basename $(git remote get-url origin) .git"
-	# todo to should make branch if doesn't exist
+	show-diff = show --pretty=format:%b
+	staged-changes-commit = "!git log -n 1 --pretty=format:%H -- `git diff --cached --name-only`"
+	staged-files = diff --name-only --cached
+	start = !git init && hub create
+	unchange = checkout
+	stash-staged = "!\
+		git stash-unstaged > /dev/null &&\
+		git stash save > /dev/null &&\
+		git stash apply stash@{1} > /dev/null &&\
+		git stash show -p | git apply -R &&\
+		git stash drop stash@{1} > /dev/null \
+	"
+	stash-unstaged = stash --keep-index --include-untracked
+	stat = status -sb
+	tree = log --graph --oneline --all
 	to = "!\
 		if git branch-exists $1; then \
 			git checkout $1; \
@@ -39,23 +55,8 @@
 			git checkout -b $1; \
 		fi \
 	#"
-	up = "!git fetch; git rebase origin/$(git base)"
-	tree = log --graph --oneline --all
-	show-diff = show --pretty=format:%b
-	staged-files = diff --name-only --cached
-	stat = status -sb
-	start = !git init && hub create
-	stash-unstaged = stash --keep-index --include-untracked
-	stash-staged = "!\
-		git stash --keep-index --include-untracked > /dev/null &&\
-		git stash save > /dev/null &&\
-		git stash apply stash@{1} > /dev/null &&\
-		git stash show -p | git apply -R &&\
-		git stash drop stash@{1} > /dev/null \
-	"
-	fixup-amend = "!git commit --fixup `git staged-changes-commit` && GIT_EDITOR=true git rebase -i `git review-base`"
-	staged-changes-commit = "!git log -n 1 --pretty=format:%H -- `git diff --cached --name-only`"
 	unstage = reset HEAD --
+	up = "!git fetch; git rebase origin/$(git base)"
 	wdiff = diff --color-words
 	wipe = "!git reset --hard && git clean -fd"
 [core]
