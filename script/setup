@@ -1,12 +1,19 @@
 git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d
 git clone https://github.com/razzius/.spacemacs.d ~/.spacemacs.d
 
+# something wrong with tpm
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
 gln -sr .gitconfig ~
 gln -sr .tmux.conf ~
 gln -sr .gitconfig ~
 gln -sr .gitignore_global ~
+gln -sr .vimrc ~
+
+# special case for this great plugin
+git clone https://github.com/chrisbra/improvedft ~/.vim/pack/bundle/start/improvedft
+# and this one
+git clone https://github.com/scrooloose/nerdcommenter ~/.vim/pack/bundle/start/nerdcommenter
 
 defaults write com.apple.finder QuitMenuItem -bool true
 killall Finder
