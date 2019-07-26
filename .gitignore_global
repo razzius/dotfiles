@@ -9,3 +9,4 @@ TAGS
 .mypy_cache
 *.dump
 RAZZI_*
+.ipynb_checkpoints

@@ -1,12 +1,14 @@
 syntax on
 
-set background=dark
-set smarttab
+set autochdir
 set autoindent
+set background=dark
+set clipboard=unnamedplus
+set linebreak
+set incsearch
 set mouse=a
 set nobackup
 set nomodeline
-set linebreak
 set noswapfile
 set number
 set shiftwidth=2
@@ -14,11 +16,12 @@ set shortmess+=I
 set showcmd
 set smartcase
 set smarttab
-set softtabstop=2
+" set softtabstop=2
 set undodir=~/.vim/undo//
 set undofile
-set clipboard=unnamedplus
-set autochdir
+
+" automaticaly set indent for filetype
+filetype plugin indent on
 
 let mapleader = ' '
 

@@ -1,6 +1,6 @@
 [user]
 	name = Razzi Abuissa
-	email = razzi.abuissa@goodeggs.com
+	email = razzi53@gmail.com
 [push]
 	default = current
 	followTags = true
@@ -25,6 +25,7 @@
 	largest-files = "!git diff-from-start -- \"$1\" | sort -rk 3"  # TODO doesn't work
 	last-commit-message = log -1 --pretty=%B
 	new = diff --cached
+	new-files = diff --name-only --diff-filter=A --cached
 	recommit = commit --amend
 	rename = branch -m
 	repo-name = "!basename $(git remote get-url origin) .git"
@@ -61,7 +62,7 @@
 	wipe = "!git reset --hard && git clean -fd"
 [core]
 	excludesfile = ~/.gitignore_global
-	pager = diff-so-fancy | less --tabs=4 -RFX
+	 # pager = diff-so-fancy | less --tabs=4 -RFX
 [pull]
 	rebase = true
 [rebase]
