@@ -21,7 +21,7 @@
 	diff-from-start = "!git diff --color=always --stat $(git hash-object -t tree /dev/null)"
 	fallback-to-base = "!if [ -n \"$1\" ]; then echo \"$1\"; else git base; fi #"
 	fixup-amend = "!git commit --fixup `git staged-changes-commit` && GIT_EDITOR=true git rebase -i `git review-base`"
-  invert-staged = "!git stash-staged && git add . && git stash pop > /dev/null"
+	invert-staged = "!git stash-staged && git add . && git stash pop > /dev/null"
 	largest-files = "!git diff-from-start -- \"$1\" | sort -rk 3"  # TODO doesn't work
 	last-commit-message = log -1 --pretty=%B
 	new = diff --cached
@@ -39,6 +39,7 @@
 	staged-files = diff --name-only --cached
 	start = !git init && hub create
 	unchange = checkout
+	untracked-files = ls-files --others --exclude-standard
 	stash-staged = "!\
 		git stash-unstaged > /dev/null &&\
 		git stash save > /dev/null &&\
@@ -62,7 +63,7 @@
 	wipe = "!git reset --hard && git clean -fd"
 [core]
 	excludesfile = ~/.gitignore_global
-	 # pager = diff-so-fancy | less --tabs=4 -RFX
+	# pager = diff-so-fancy | less --tabs=4 -RFX
 [pull]
 	rebase = true
 [rebase]
