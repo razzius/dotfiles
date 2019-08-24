@@ -6,6 +6,7 @@ set background=dark
 set clipboard=unnamedplus
 set linebreak
 set incsearch
+set ignorecase
 set mouse=a
 set nobackup
 set nomodeline
@@ -16,9 +17,11 @@ set shortmess+=I
 set showcmd
 set smartcase
 set smarttab
-" set softtabstop=2
 set undodir=~/.vim/undo//
 set undofile
+
+" Do not comment when opening lines after comment
+autocmd BufNewFile,BufRead * setlocal formatoptions-=cro
 
 " automaticaly set indent for filetype
 filetype plugin indent on
