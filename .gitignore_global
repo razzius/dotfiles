@@ -10,3 +10,6 @@ TAGS
 *.dump
 RAZZI_*
 .ipynb_checkpoints
+.eggs
+*.so
+.venv
