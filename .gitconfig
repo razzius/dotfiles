@@ -32,9 +32,11 @@
 	reset-last = reset @^
 	reset-submodule = submodule update
 	review = "!git diff $(git review-base \"$1\") #"
+	review-files = "!git diff --name-status $(git review-base \"$1\") #"
 	review-base = "!git merge-base `git current` $(git fallback-to-base \"$1\") #"
 	root = rev-parse --show-toplevel
 	show-diff = show --pretty=format:%b
+	soft-merge = merge --no-commit --no-ff
 	staged-changes-commit = "!git log -n 1 --pretty=format:%H -- `git diff --cached --name-only`"
 	staged-files = diff --name-only --cached
 	start = !git init && hub create
