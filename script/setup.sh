@@ -10,10 +10,10 @@ gln -sr .gitconfig ~
 gln -sr .gitignore_global ~
 gln -sr .vimrc ~
 
-# special case for this great plugin
+# special cases for these great plugins
 git clone https://github.com/chrisbra/improvedft ~/.vim/pack/bundle/start/improvedft
-# and this one
 git clone https://github.com/scrooloose/nerdcommenter ~/.vim/pack/bundle/start/nerdcommenter
+git clone https://tpope.io/vim/surround.git ~/.vim/pack/bundle/start/surround
 
 defaults write com.apple.finder QuitMenuItem -bool true
 killall Finder
