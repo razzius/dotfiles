@@ -18,5 +18,10 @@ git clone https://tpope.io/vim/surround.git ~/.vim/pack/bundle/start/surround
 defaults write com.apple.finder QuitMenuItem -bool true
 killall Finder
 defaults write -g ApplePressAndHoldEnabled -bool false
-sudo sh -c 'echo /usr/local/bin/fish >> /etc/shells'
-chsh -s /usr/local/bin/fish
+if ! grep -q fish /etc/shells; then
+  sudo sh -c 'echo /usr/local/bin/fish >> /etc/shells'
+fi
+
+if test $SHELL != /usr/local/bin/fish; then
+  chsh -s /usr/local/bin/fish
+fi
