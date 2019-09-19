@@ -9,6 +9,7 @@ gln -sr .tmux.conf ~
 gln -sr .gitconfig ~
 gln -sr .gitignore_global ~
 gln -sr .vimrc ~
+gln -sr .rgrc ~
 
 # special cases for these great plugins
 git clone https://github.com/chrisbra/improvedft ~/.vim/pack/bundle/start/improvedft
