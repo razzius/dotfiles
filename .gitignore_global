@@ -13,3 +13,4 @@ RAZZI_*
 .eggs
 *.so
 .venv
+*.dat
