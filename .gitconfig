@@ -3,7 +3,6 @@
 	email = razzi53@gmail.com
 [push]
 	default = current
-	followTags = true
 [credential]
 	helper = osxkeychain
 [alias]
