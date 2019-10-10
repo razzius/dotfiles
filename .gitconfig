@@ -23,6 +23,7 @@
 	fixup-amend = "!git commit --fixup `git staged-changes-commit` && GIT_EDITOR=true git rebase -i `git review-base`"
 	invert-staged = "!git stash-staged && git add . && git stash pop > /dev/null"
 	largest-files = "!git diff-from-start -- \"$1\" | sort -rk 3"  # TODO doesn't work
+	last-branch = "rev-parse --abbrev-ref '@{-1}'"
 	last-commit-message = log -1 --pretty=%B
 	new = diff --cached
 	new-files = diff --name-only --diff-filter=A --cached
