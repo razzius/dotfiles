@@ -27,6 +27,7 @@
 	last-commit-message = log -1 --pretty=%B
 	new = diff --cached
 	new-files = diff --name-only --diff-filter=A --cached
+	pull-current = "!git pull origin $(git current)"
 	recommit = commit --amend
 	rename = branch -m
 	repo-name = "!basename $(git remote get-url origin) .git"
