@@ -43,6 +43,7 @@
 	staged-changes-commit = "!git log -n 1 --pretty=format:%H -- `git diff --cached --name-only`"
 	staged-files = diff --name-only --cached
 	start = !git init && hub create
+	undo-commit = reset --soft @^
 	update = "!\
 		git add . &&\
 		git commit -m 'Update' &&\
