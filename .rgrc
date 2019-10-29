@@ -1,1 +1,8 @@
 --smart-case
+# --fixed-strings
+--type-add
+tpy:test_*.py
+--type-add
+h:*.html
+--type-add
+el:*.el
