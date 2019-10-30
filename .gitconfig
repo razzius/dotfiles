@@ -93,5 +93,6 @@
 	verbose = true
 [rerere]
 	enabled = true
+	autoupdate = true
 [advice]
 	detachedHead = false
