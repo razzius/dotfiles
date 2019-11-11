@@ -6,7 +6,7 @@ from pdb import DefaultConfig
 
 
 class Config(DefaultConfig):
-    prompt = '\x1b[34m' + '+pdb> ' + '\x1b[0m'
+    prompt = '+pbd> '
     sticky_by_default = True
     editor = 'emacsclient -n'
 
