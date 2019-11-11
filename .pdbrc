@@ -1,0 +1,9 @@
+import os
+
+alias k import pprint; pprint.pprint(sorted(%1.keys()))
+alias o sticky
+alias t type %1
+alias sh import pprint; pprint.pprint({k: v.shape for k, v in %1.items()})
+
+fname = os.path.expanduser('~/.pdbrc.py')
+exec(open(fname).read(), globals(), locals())
