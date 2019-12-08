@@ -37,3 +37,5 @@ Untitled*.ipynb
 untracked
 .rebel_readline_history
 .tern-port
+*.out
+*.out.*
