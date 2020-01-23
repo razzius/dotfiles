@@ -39,3 +39,4 @@ untracked
 .tern-port
 *.out
 *.out.*
+coverage.xml
