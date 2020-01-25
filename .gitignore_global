@@ -41,3 +41,4 @@ untracked
 *.out.*
 coverage.xml
 .jekyll-cache
+*.class
