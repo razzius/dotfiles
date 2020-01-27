@@ -12,7 +12,6 @@
 	branch-names = for-each-ref --format='%(refname:short)' refs/heads
 	branch-updates = for-each-ref --sort='-authordate:iso8601' --format=' %(authordate:relative)%09%(refname:short)' refs/heads
 	cl = clone --depth=1
-	clean = "!git clean -i"  # does not work...?
 	clean-untracked = clean -f -d -X
 	commit-date = "!gdate -d @`git log -1 --format="%at"` -I"
 	commit-id = "!git rev-parse @ | tr -d '\n'"
