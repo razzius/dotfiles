@@ -42,3 +42,4 @@ untracked
 coverage.xml
 .jekyll-cache
 *.class
+*.dSYM
