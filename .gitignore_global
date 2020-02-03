@@ -43,3 +43,5 @@ coverage.xml
 .jekyll-cache
 *.class
 *.dSYM
+.vagrant
+*.log
