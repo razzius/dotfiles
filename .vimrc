@@ -1,9 +1,9 @@
 syntax on
-
 set autochdir
 set autoindent
+set autoindent
 set background=dark
-set clipboard=unnamedplus
+set clipboard=unnamed
 set linebreak
 set incsearch
 set ignorecase
