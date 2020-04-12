@@ -34,6 +34,8 @@ nnoremap <leader>q :q<cr>
 vnoremap <leader>y :w pbcopy<cr>
 vmap s S
 
+nnoremap - ddp
+nnoremap _ ddkP
 nnoremap <C-l> <C-w>l
 nnoremap <C-h> <C-w>h
 inoremap <c-t> <esc>hxpa
