@@ -13,6 +13,7 @@
 	branch-updates = for-each-ref --sort='-authordate:iso8601' --format=' %(authordate:relative)%09%(refname:short)' refs/heads
 	cl = clone --depth=1
 	clean-untracked = clean -f -d -X
+	clear-reflog= reflog expire --expire=now --all
 	commit-date = "!gdate -d @`git log -1 --format="%at"` -I"
 	commit-id = "!git rev-parse @ | tr -d '\n'"
 	current = rev-parse --abbrev-ref HEAD
@@ -44,11 +45,6 @@
 	staged-files = diff --name-only --cached
 	start = !git init && hub create
 	undo-commit = reset --soft @^
-	update = "!\
-		git add . &&\
-		git commit -m 'Update' &&\
-		git push \
-	"
 	untracked-files = ls-files --others --exclude-standard
 	stash-staged = "!\
 		git stash-unstaged > /dev/null &&\
@@ -68,7 +64,6 @@
 		fi \
 	#"
 	unstage = reset HEAD --
-	up = "!git fetch; git rebase origin/$(git base)"
 	wdiff = diff --color-words
 	wipe = "!git reset --hard && git clean -fd"
 [core]
