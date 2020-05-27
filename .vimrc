@@ -1,8 +1,9 @@
 syntax on
 set autochdir
 set autoindent
-set autoindent
 set background=dark
+" Allow backspacing over start of line
+set backspace=indent,eol,start
 set clipboard=unnamed
 set linebreak
 set incsearch
@@ -29,13 +30,23 @@ filetype plugin indent on
 let mapleader = ' '
 
 nnoremap <leader><leader> :w<cr>
+nnoremap <leader>r :source ~/.vimrc<cr>
 nnoremap <leader>q :q<cr>
+nnoremap <leader>fi :e ~/.vimrc<cr>
+nnoremap <leader>% :vertical terminal<cr>
+nnoremap <leader><tab> :e #<cr>
+nnoremap <leader>w <C-w>
+nnoremap 0 ^
+nnoremap ^ 0
+nnoremap j gj
+nnoremap k gk
 
 vnoremap <leader>y :w pbcopy<cr>
 vmap s S
 
 nnoremap - ddp
-nnoremap _ ddkP
+nnoremap _ :m .-2<CR>
 nnoremap <C-l> <C-w>l
 nnoremap <C-h> <C-w>h
-inoremap <c-t> <esc>hxpa
+inoremap <C-t> <esc>hxpa
+tnoremap <C-[> <C-w>N
