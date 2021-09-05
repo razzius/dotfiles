@@ -5,6 +5,7 @@ set background=dark
 " Allow backspacing over start of line
 set backspace=indent,eol,start
 set clipboard=unnamed
+set expandtab
 set linebreak
 set incsearch
 set ignorecase

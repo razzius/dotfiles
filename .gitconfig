@@ -1,6 +1,6 @@
 [user]
 	name = Razzi Abuissa
-	email = razzi53@gmail.com
+	email = razzi@abuissa.net
 [push]
 	default = current
 [credential]
@@ -21,6 +21,7 @@
 	deleted-files = diff --name-only --diff-filter=D --cached
 	fallback-to-base = "!if [ -n \"$1\" ]; then echo \"$1\"; else git base; fi #"
 	fixup-amend = "!git commit --fixup `git staged-changes-commit` && GIT_EDITOR=true git rebase -i `git review-base`"
+	hop = "!git stash && git switch ${1--} && git stash pop #"
 	invert-staged = "!git stash-staged && git add . && git stash pop > /dev/null"
 	largest-files = "!git diff-from-start -- \"$1\" | sort -rk 3"  # TODO doesn't work
 	last-branch = "rev-parse --abbrev-ref '@{-1}'"
