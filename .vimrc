@@ -10,7 +10,7 @@ set ignorecase
 set incsearch
 set fixendofline
 set linebreak
-set listchars=tab:>·,trail:␣
+set listchars=tab:⇥·,trail:␣
 set list
 set mouse=a
 set nobackup
