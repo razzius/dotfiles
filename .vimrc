@@ -1,7 +1,11 @@
 syntax on
+" automaticaly set indent for filetype
+filetype plugin indent on
+
 set autochdir
 set autoindent
 set background=dark
+
 " Allow backspacing over start of line
 set backspace=indent,eol,start
 set clipboard=unnamed
@@ -10,7 +14,7 @@ set ignorecase
 set incsearch
 set fixendofline
 set linebreak
-set listchars=tab:⇥·,trail:␣
+set listchars=tab:⇥·
 set list
 set mouse=a
 set nobackup
@@ -25,9 +29,6 @@ set smarttab
 set undodir=~/.vim/undo//
 set undofile
 
-" Do not comment when opening lines after comment
-autocmd BufNewFile,BufRead * setlocal formatoptions-=cro
-
 function TrimWhitespace()
     let save_cursor = getpos(".")
     silent! %s/\s\+$//e
@@ -35,12 +36,22 @@ function TrimWhitespace()
     call setpos('.', save_cursor)
 endfunction
 
-autocmd BufWritePre * call TrimWhitespace()
+highlight default link EndOfLineSpace ErrorMsg
+match EndOfLineSpace / \+$/
 
-" automaticaly set indent for filetype
-filetype plugin indent on
+augroup nicetohaves
+  autocmd!
+  autocmd BufWritePre * call TrimWhitespace()
+  autocmd InsertEnter * hi link EndOfLineSpace Normal
+  autocmd InsertLeave * hi link EndOfLineSpace ErrorMsg
+augroup END
+
+" Do not comment when opening lines after comment
+autocmd! BufNewFile,BufRead * setlocal formatoptions-=cro
 
 let mapleader = ' '
+
+cnoremap <C-a> <HOME>
 inoremap <C-i> <C-q><TAB>
 inoremap <C-t> <esc>hxpa
 nnoremap - ddp
@@ -62,3 +73,5 @@ tnoremap <C-[> <C-w>N
 vmap s S
 vnoremap ! !sort<cr>
 vnoremap <leader>y :w pbcopy<cr>
+
+let g:NERDCreateDefaultMappings = 1
