@@ -35,6 +35,7 @@
 	repo-name = "!basename $(git remote get-url origin) .git"
 	reset-last = reset @^
 	reset-submodule = submodule update
+	restage = update-index --again
 	review-diff = "!git diff $(git review-base \"$1\") #"
 	review-files = "!git diff --name-only $(git review-base \"$1\") #"
 	review-status = "!git diff --name-status $(git review-base \"$1\") #"
@@ -96,3 +97,5 @@
 	defaultBranch = main
 [includeIf "gitdir:~/work/"]
 	path = .gitconfig-work
+[protocol]
+	version = 2
