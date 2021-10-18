@@ -35,10 +35,10 @@ set viminfo='25
 set wildmode=list:full
 
 function TrimWhitespace()
-    let save_cursor = getpos(".")
-    silent! %s/\s\+$//e
-    silent! %s/$\n\+\%$//e
-    call setpos('.', save_cursor)
+  let save_cursor = getpos(".")
+  silent! %s/\s\+$//e
+  silent! %s/$\n\+\%$//e
+  call setpos('.', save_cursor)
 endfunction
 
 highlight default link EndOfLineSpace ErrorMsg
@@ -57,14 +57,26 @@ autocmd! BufNewFile,BufRead * setlocal formatoptions-=cro
 
 let mapleader = ' '
 
+cnoremap <C-A> <Home>
+cnoremap <C-B> <Left>
+cnoremap <C-F> <Right>
 cnoremap <C-a> <HOME>
+cnoremap <C-k> <C-\>e getcmdpos() == 1 ?
+      \ '' : getcmdline()[:getcmdpos()-2]<CR>
+cnoremap <C-k> <Left>
+cnoremap <C-t> <C-f>$Xp<C-c><right><C-l>
+cnoremap <C-up> <C-f>
+cnoremap <Esc>b <S-Left>
+cnoremap <Esc>f <S-Right>
 inoremap <C-]> <C-q><TAB>
 inoremap <C-i> <C-x><C-l>
+inoremap <C-k> <C-o>D
 inoremap <C-t> <esc>hxpa
 nnoremap - ddp
 nnoremap 0 ^
 nnoremap <C-h> <C-w>h
 nnoremap <C-l> <C-w>l
+nnoremap <cr> :nohlsearch<cr>
 nnoremap <leader>" :belowright terminal<cr>
 nnoremap <leader>% :vertical terminal<cr>
 nnoremap <leader>' :belowright terminal<cr>
@@ -72,25 +84,53 @@ nnoremap <leader><leader> :w<cr>
 nnoremap <leader><tab> :e #<cr>
 nnoremap <leader>fi :e ~/.vimrc<cr>
 nnoremap <leader>h :help<space>
-nnoremap <silent> <leader>fr :browse oldfiles<cr>
 nnoremap <leader>o :q<cr>
 nnoremap <leader>q :q<cr>
+nnoremap <leader>r :source $MYVIMRC <bar> :echom "RELOAD"<cr>
+nnoremap <leader>v <C-v>
 nnoremap <leader>w <C-w>
 nnoremap <silent> <leader><esc> :bdelete<cr>
-nnoremap <leader>r :source $MYVIMRC <bar> :echo "RELOAD"<cr>
+nnoremap <silent> <leader>fr :browse oldfiles<cr>
+nnoremap [<leader> O<ESC>j
+nnoremap ]<leader> o<ESC>k
 nnoremap ^ 0
 nnoremap _ :m .-2<CR>
-nnoremap j gj
-nnoremap gm gM
 nnoremap gM gm
+nnoremap gm gM
+nnoremap j gj
 nnoremap k gk
-nnoremap ]<leader> o<ESC>k
-nnoremap [<leader> O<ESC>j
-nnoremap <cr> :nohlsearch<cr>
 tnoremap <C-[> <C-w>N
 vmap s S
 vnoremap ! !sort<cr>
 vnoremap $ $h
 vnoremap <leader>y :w pbcopy<cr>
 
-let g:NERDCreateDefaultMappings = 1
+set ttimeout
+set ttimeoutlen=1
+set ttyfast
+
+" blinking block in insert mode
+let &t_EI = "\e[2 q"
+let &t_SI = "\<esc>[1 q"
+
+function! DescribeKey()
+  try
+    let char = getcharstr()
+  catch /^Vim:Interrupt$/
+    echo "oops int"
+    return
+  endtry
+  let charmod = getcharmod()
+  echom "you pres" . char . charmod
+endfunction
+
+nnoremap <silent> <C-h>k :call DescribeKey()<cr>
+
+" nnoremap <leader>r :call SourceAndReload()<cr>
+
+" if !exists("*SourceAndReload")
+"   function! SourceAndReload()
+"     source $MYVIMRC
+"     echom "RELOAD"
+"   endfunction
+" end
