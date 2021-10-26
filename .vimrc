@@ -9,6 +9,7 @@ set background=dark
 " Allow backspacing over start of line
 set backspace=indent,eol,start
 set clipboard=unnamed
+set gdefault
 set expandtab
 set fixendofline
 set hlsearch
@@ -93,6 +94,7 @@ nnoremap <silent> <leader><esc> :bdelete<cr>
 nnoremap <silent> <leader>fr :browse oldfiles<cr>
 nnoremap [<leader> O<ESC>j
 nnoremap ]<leader> o<ESC>k
+nnoremap <leader>, A,<esc>
 nnoremap ^ 0
 nnoremap _ :m .-2<CR>
 nnoremap gM gm
@@ -134,3 +136,13 @@ nnoremap <silent> <C-h>k :call DescribeKey()<cr>
 "     echom "RELOAD"
 "   endfunction
 " end
+
+" Config for https://github.com/bkad/CamelCaseMotion
+map <silent> w <Plug>CamelCaseMotion_w
+map <silent> b <Plug>CamelCaseMotion_b
+map <silent> e <Plug>CamelCaseMotion_e
+map <silent> ge <Plug>CamelCaseMotion_ge
+sunmap w
+sunmap b
+sunmap e
+sunmap ge
