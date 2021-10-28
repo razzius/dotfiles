@@ -87,6 +87,7 @@ nnoremap <leader>fi :e ~/.vimrc<cr>
 nnoremap <leader>h :help<space>
 nnoremap <leader>o :q<cr>
 nnoremap <leader>q :q<cr>
+nnoremap <C-c> :wq<cr>
 nnoremap <leader>r :source $MYVIMRC <bar> :echom "RELOAD"<cr>
 nnoremap <leader>v <C-v>
 nnoremap <leader>w <C-w>
@@ -146,3 +147,8 @@ sunmap w
 sunmap b
 sunmap e
 sunmap ge
+
+xnoremap il ^og_
+onoremap il :normal vil<CR>
+xnoremap al 0o$
+onoremap al :normal val<CR>
