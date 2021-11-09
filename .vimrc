@@ -107,6 +107,7 @@ vmap s S
 vnoremap ! !sort<cr>
 vnoremap $ $h
 vnoremap <leader>y :w pbcopy<cr>
+nnoremap <leader>o jP
 
 set ttimeout
 set ttimeoutlen=1
@@ -152,3 +153,7 @@ xnoremap il ^og_
 onoremap il :normal vil<CR>
 xnoremap al 0o$
 onoremap al :normal val<CR>
+"<nul> is c-spc
+nnoremap <nul><space> <c-w><c-w>
+nnoremap <nul>j <c-w>j
+nnoremap <nul>k <c-w>k
