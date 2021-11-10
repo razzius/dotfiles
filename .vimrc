@@ -87,7 +87,7 @@ nnoremap <leader>fi :e ~/.vimrc<cr>
 nnoremap <leader>h :help<space>
 nnoremap <leader>o :q<cr>
 nnoremap <leader>q :q<cr>
-nnoremap <C-c> :wq<cr>
+nnoremap <C-c> ZZ<cr>
 nnoremap <leader>r :source $MYVIMRC <bar> :echom "RELOAD"<cr>
 nnoremap <leader>v <C-v>
 nnoremap <leader>w <C-w>
