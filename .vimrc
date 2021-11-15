@@ -1,9 +1,11 @@
 syntax on
+
 " automaticaly set indent for filetype
 filetype plugin indent on
 
 set autochdir
 set autoindent
+set autoread
 set background=dark
 
 " Allow backspacing over start of line
@@ -29,7 +31,7 @@ set shortmess+=IT
 set showcmd
 set smartcase
 set smarttab
-set undodir=~/.vim/undo//
+set undodir=~/.vim/undo/
 set undofile
 set updatetime=100
 set viminfo='25
