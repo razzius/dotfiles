@@ -7,7 +7,6 @@ set autochdir
 set autoindent
 set autoread
 set background=dark
-
 " Allow backspacing over start of line
 set backspace=indent,eol,start
 set clipboard=unnamed
@@ -19,7 +18,7 @@ set ignorecase
 set incsearch
 set linebreak
 set list
-set listchars=tab:⇥·
+set listchars=tab:⇥\ ,nbsp:·
 set mouse=a
 set nobackup
 set nomodeline
@@ -45,6 +44,7 @@ function TrimWhitespace()
 endfunction
 
 highlight default link EndOfLineSpace ErrorMsg
+highlight SpecialKey guifg=darkgrey ctermfg=darkgrey
 match EndOfLineSpace / \+$/
 
 augroup nicetohaves
@@ -72,7 +72,7 @@ cnoremap <C-up> <C-f>
 cnoremap <Esc>b <S-Left>
 cnoremap <Esc>f <S-Right>
 inoremap <C-]> <C-q><TAB>
-inoremap <C-i> <C-x><C-l>
+inoremap <C-l> <C-x><C-l>
 inoremap <C-k> <C-o>D
 inoremap <C-t> <esc>hxpa
 nnoremap - ddp
@@ -87,7 +87,6 @@ nnoremap <leader><leader> :w<cr>
 nnoremap <leader><tab> :e #<cr>
 nnoremap <leader>fi :e ~/.vimrc<cr>
 nnoremap <leader>h :help<space>
-nnoremap <leader>o :q<cr>
 nnoremap <leader>q :q<cr>
 nnoremap <C-c> ZZ<cr>
 nnoremap <leader>r :source $MYVIMRC <bar> :echom "RELOAD"<cr>
@@ -109,7 +108,7 @@ vmap s S
 vnoremap ! !sort<cr>
 vnoremap $ $h
 vnoremap <leader>y :w pbcopy<cr>
-nnoremap <leader>o jP
+nnoremap <leader>o o<esc>P
 
 set ttimeout
 set ttimeoutlen=1
@@ -159,3 +158,4 @@ onoremap al :normal val<CR>
 nnoremap <nul><space> <c-w><c-w>
 nnoremap <nul>j <c-w>j
 nnoremap <nul>k <c-w>k
+nmap <silent> g] <Plug>(coc-definition)
