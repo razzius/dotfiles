@@ -1,4 +1,7 @@
 syntax on
+" From https://stevelosh.com/projects/badwolf
+" To install it, run git clone https://github.com/sjl/badwolf ~/.vim/pack/vendor/start/badwolf
+colorscheme badwolf
 
 " automaticaly set indent for filetype
 filetype plugin indent on
@@ -30,8 +33,12 @@ set shortmess+=IT
 set showcmd
 set smartcase
 set smarttab
-set undodir=~/.vim/undo/
+
+" Used to be ~/.vim/undo, but that breaks silently if that folder is missing.
+" Just throw it in ~/.vim.
+set undodir=~/.vim/
 set undofile
+
 set updatetime=100
 set viminfo='25
 set wildmode=list:full
@@ -45,6 +52,9 @@ endfunction
 
 highlight default link EndOfLineSpace ErrorMsg
 highlight SpecialKey guifg=darkgrey ctermfg=darkgrey
+" TODO want # and " to highlight differently in vim
+" I keep typing # to mean comment...
+" highlight PoundKey guifg=darkgrey ctermfg=darkgrey
 match EndOfLineSpace / \+$/
 
 augroup nicetohaves
@@ -57,6 +67,9 @@ augroup END
 
 " Do not comment when opening lines after comment
 autocmd! BufNewFile,BufRead * setlocal formatoptions-=cro
+
+" Don't show warning when using w!! to write readonly file
+autocmd FileChangedShell * echohl WarningMsg | echo "File changed shell." | echohl None
 
 let mapleader = ' '
 
@@ -149,6 +162,8 @@ sunmap w
 sunmap b
 sunmap e
 sunmap ge
+" disable q: keybinding for command line, too close to :q
+nnoremap q: <nop>
 
 xnoremap il ^og_
 onoremap il :normal vil<CR>
@@ -159,3 +174,7 @@ nnoremap <nul><space> <c-w><c-w>
 nnoremap <nul>j <c-w>j
 nnoremap <nul>k <c-w>k
 nmap <silent> g] <Plug>(coc-definition)
+
+command W silent w !sudo tee > /dev/null %
+nnoremap <leader>W :W<cr>:q!<cr>
+nnoremap <silent> gx :execute 'silent! !open ' . shellescape(expand('<cWORD>'), 1)<cr>
