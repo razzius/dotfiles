@@ -1,3 +1,4 @@
+--color=always
 --smart-case
 --type-add
 tpy:test_*.py
