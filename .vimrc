@@ -1,4 +1,5 @@
 syntax on
+
 " From https://stevelosh.com/projects/badwolf
 " To install it, run git clone https://github.com/sjl/badwolf ~/.vim/pack/vendor/start/badwolf
 colorscheme badwolf
@@ -100,8 +101,9 @@ nnoremap <leader><leader> :w<cr>
 nnoremap <leader><tab> :e #<cr>
 nnoremap <leader>fi :e ~/.vimrc<cr>
 nnoremap <leader>h :help<space>
+nnoremap <leader>ih o<cr>###<space>
 nnoremap <leader>q :q<cr>
-nnoremap <C-c> ZZ<cr>
+nnoremap <C-c> ZZ<cr> " This helps in nested vim situations
 nnoremap <leader>r :source $MYVIMRC <bar> :echom "RELOAD"<cr>
 nnoremap <leader>v <C-v>
 nnoremap <leader>w <C-w>
@@ -121,6 +123,7 @@ vmap s S
 vnoremap ! !sort<cr>
 vnoremap $ $h
 vnoremap <leader>y :w pbcopy<cr>
+vmap s S
 nnoremap <leader>o o<esc>P
 
 set ttimeout
@@ -144,15 +147,6 @@ endfunction
 
 nnoremap <silent> <C-h>k :call DescribeKey()<cr>
 
-" nnoremap <leader>r :call SourceAndReload()<cr>
-
-" if !exists("*SourceAndReload")
-"   function! SourceAndReload()
-"     source $MYVIMRC
-"     echom "RELOAD"
-"   endfunction
-" end
-
 " Config for https://github.com/bkad/CamelCaseMotion
 map <silent> w <Plug>CamelCaseMotion_w
 map <silent> b <Plug>CamelCaseMotion_b
@@ -162,6 +156,7 @@ sunmap w
 sunmap b
 sunmap e
 sunmap ge
+
 " disable q: keybinding for command line, too close to :q
 nnoremap q: <nop>
 
@@ -169,6 +164,7 @@ xnoremap il ^og_
 onoremap il :normal vil<CR>
 xnoremap al 0o$
 onoremap al :normal val<CR>
+onoremap <leader> iw
 "<nul> is c-spc
 nnoremap <nul><space> <c-w><c-w>
 nnoremap <nul>j <c-w>j
