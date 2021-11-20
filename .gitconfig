@@ -57,6 +57,7 @@
 	"
 	stash-unstaged = stash --keep-index --include-untracked
 	stat = status -sb
+	switch-to-upstream-branch = "!git fetch origin $1 && git switch $1 #"
 	tree = log --graph --oneline --all
 	to = "!\
 		if git branch-exists $1; then \
