@@ -101,8 +101,9 @@ nnoremap <leader><leader> :w<cr>
 nnoremap <leader><tab> :e #<cr>
 nnoremap <leader>fi :e ~/.vimrc<cr>
 nnoremap <leader>h :help<space>
-nnoremap <leader>ih o<cr>###<space>
+nnoremap <leader>ih :call TrimWhitespace()<cr>Go<cr>###<space>
 nnoremap <leader>q :q<cr>
+nnoremap <leader>Q :q!<cr>
 nnoremap <C-c> ZZ<cr> " This helps in nested vim situations
 nnoremap <leader>r :source $MYVIMRC <bar> :echom "RELOAD"<cr>
 nnoremap <leader>v <C-v>
@@ -123,6 +124,8 @@ vmap s S
 vnoremap ! !sort<cr>
 vnoremap $ $h
 vnoremap <leader>y :w pbcopy<cr>
+vnoremap ^ 0
+vnoremap 0 ^
 vmap s S
 nnoremap <leader>o o<esc>P
 
