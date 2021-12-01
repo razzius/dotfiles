@@ -100,3 +100,5 @@
 	path = .gitconfig-work
 [protocol]
 	version = 2
+[log]
+	date = relative
