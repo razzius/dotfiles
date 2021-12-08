@@ -13,6 +13,7 @@
 	branch-updates = for-each-ref --sort='-authordate:iso8601' --format=' %(authordate:relative)%09%(refname:short)' refs/heads
 	cl = clone --depth=1
 	clean-untracked = clean -f -d -X
+	cleanup = !git reset --hard && git clean-untracked && git clean -f
 	clear-reflog= reflog expire --expire=now --all
 	commit-date = "!gdate -d @`git log -1 --format="%at"` -I"
 	commit-id = "!git rev-parse @ | tr -d '\n'"
