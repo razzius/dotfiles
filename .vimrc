@@ -2,7 +2,7 @@ syntax on
 
 " From https://stevelosh.com/projects/badwolf
 " To install it, run git clone https://github.com/sjl/badwolf ~/.vim/pack/vendor/start/badwolf
-colorscheme badwolf
+" colorscheme badwolf
 
 " automaticaly set indent for filetype
 filetype plugin indent on
@@ -22,7 +22,7 @@ set ignorecase
 set incsearch
 set linebreak
 set list
-set listchars=tab:⇥\ ,nbsp:·
+set listchars=tab:·\ " Need a comment so trailing space is not eaten
 set mouse=a
 set nobackup
 set nomodeline
@@ -87,6 +87,8 @@ cnoremap <Esc>b <S-Left>
 cnoremap <Esc>f <S-Right>
 inoremap <C-]> <C-q><TAB>
 inoremap <C-l> <C-x><C-l>
+inoremap <C-e> <esc>A
+" inoremap <C-i> <C-x><C-l>
 inoremap <C-k> <C-o>D
 inoremap <C-t> <esc>hxpa
 nnoremap - ddp
@@ -128,6 +130,9 @@ vnoremap ^ 0
 vnoremap 0 ^
 vmap s S
 nnoremap <leader>o o<esc>P
+nnoremap <leader>o jP
+nnoremap gp :silent %!prettier --stdin-filepath %<CR>
+nmap q<space> <space>q
 
 set ttimeout
 set ttimeoutlen=1
@@ -186,3 +191,6 @@ augroup vimrc-auto-mkdir
     endif
   endfunction
 augroup END
+
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<tab>"
