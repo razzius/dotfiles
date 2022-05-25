@@ -1,3 +1,10 @@
+" set default 'runtimepath' (without ~/.vim folders)
+let &runtimepath = printf('%s/vimfiles,%s,%s/vimfiles/pack', $VIM, $VIMRUNTIME, $VIM)
+" what is the name of the directory containing this file?
+let s:portable = expand('<sfile>:p:h')
+" add the directory to 'runtimepath'
+let &runtimepath = printf('%s,%s,%s/pack', s:portable, &runtimepath, s:portable)
+
 syntax on
 
 " From https://stevelosh.com/projects/badwolf
@@ -6,6 +13,11 @@ syntax on
 
 " automaticaly set indent for filetype
 filetype plugin indent on
+
+augroup SyntaxSettings
+    autocmd!
+    autocmd BufNewFile,BufRead *.ts set filetype=javascript
+augroup END
 
 set autochdir
 set autoindent
@@ -34,6 +46,7 @@ set shortmess+=IT
 set showcmd
 set smartcase
 set smarttab
+set smartindent
 
 " Used to be ~/.vim/undo, but that breaks silently if that folder is missing.
 " Just throw it in ~/.vim.
@@ -102,6 +115,7 @@ nnoremap <leader>' :belowright terminal<cr>
 nnoremap <leader><leader> :w<cr>
 nnoremap <leader><tab> :e #<cr>
 nnoremap <leader>fi :e ~/.vimrc<cr>
+nnoremap <silent> <leader>fp :let @+ = expand("%:p")<cr>
 nnoremap <leader>h :help<space>
 nnoremap <leader>ih :call TrimWhitespace()<cr>Go<cr>###<space>
 nnoremap <leader>q :q<cr>
@@ -119,8 +133,11 @@ nnoremap ^ 0
 nnoremap _ :m .-2<CR>
 nnoremap gM gm
 nnoremap gm gM
+nnoremap gb :Git blame<cr>
+nnoremap gs :Git<cr>
 nnoremap j gj
 nnoremap k gk
+nnoremap Q @Q
 tnoremap <C-[> <C-w>N
 vmap s S
 vnoremap ! !sort<cr>
@@ -128,11 +145,13 @@ vnoremap $ $h
 vnoremap <leader>y :w pbcopy<cr>
 vnoremap ^ 0
 vnoremap 0 ^
+vnoremap <leader>q :q<cr>
 vmap s S
 nnoremap <leader>o o<esc>P
 nnoremap <leader>o jP
 nnoremap gp :silent %!prettier --stdin-filepath %<CR>
 nmap q<space> <space>q
+nnoremap <leader>z :AnyFoldActivate<cr>
 
 set ttimeout
 set ttimeoutlen=1
@@ -155,15 +174,16 @@ endfunction
 
 nnoremap <silent> <C-h>k :call DescribeKey()<cr>
 
+vnoremap 0 ^
 " Config for https://github.com/bkad/CamelCaseMotion
-map <silent> w <Plug>CamelCaseMotion_w
-map <silent> b <Plug>CamelCaseMotion_b
-map <silent> e <Plug>CamelCaseMotion_e
-map <silent> ge <Plug>CamelCaseMotion_ge
-sunmap w
-sunmap b
-sunmap e
-sunmap ge
+" map <silent> w <Plug>CamelCaseMotion_w
+" map <silent> b <Plug>CamelCaseMotion_b
+" map <silent> e <Plug>CamelCaseMotion_e
+" map <silent> ge <Plug>CamelCaseMotion_ge
+" sunmap w
+" sunmap b
+" sunmap e
+" sunmap ge
 
 " disable q: keybinding for command line, too close to :q
 nnoremap q: <nop>
@@ -182,6 +202,33 @@ nmap <silent> g] <Plug>(coc-definition)
 command W silent w !sudo tee > /dev/null %
 nnoremap <leader>W :W<cr>:q!<cr>
 nnoremap <silent> gx :execute 'silent! !open ' . shellescape(expand('<cWORD>'), 1)<cr>
+
+command! -bar StartTerminal terminal
+command! FullscreenTerminal StartTerminal|:only
+
+" delete surrounding spaces
+" (not sure why ds<space><space> is needed)
+" nmap d<leader> ds<space><space> " this works but it's not what I want
+" nnoremap ds<space> ds<space><space>
+" nnoremap ds<space> gg
+" (testme)
+
+" TODO
+function! GitIfEmpty()
+  if @% == ""
+    echo "Empty :)"
+  end
+endfunction
+
+au VimEnter * call GitIfEmpty()
+
+" function WriteCreatingDirs()
+"     execute ':silent !mkdir -p %:h'
+"     write
+" endfunction
+
+" command W call WriteCreatingDirs()
+
 augroup vimrc-auto-mkdir
   autocmd!
   autocmd BufWritePre * call s:auto_mkdir(expand('<afile>:p:h'), v:cmdbang)
@@ -194,3 +241,14 @@ augroup END
 
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
+let g:closetag_filetypes = 'xml'
+
+augroup xml
+  autocmd!
+  autocmd FileType xml setlocal equalprg=xmllint\ --format\ --recover\ -\ 2>/dev/null
+augroup END
+
+augroup Vagrantfile
+  autocmd!
+  autocmd BufRead,BufNewFile Vagrantfile set ft=ruby
+augroup END

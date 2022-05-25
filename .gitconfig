@@ -21,6 +21,7 @@
 	diff-from-start = "!git diff --color=always --stat $(git hash-object -t tree /dev/null)"
 	deleted-files = diff --name-only --diff-filter=D --cached
 	fallback-to-base = "!if [ -n \"$1\" ]; then echo \"$1\"; else git base; fi #"
+	fetch-rebase = "!git fetch origin && git rebase origin/$(git base)"
 	fixup-amend = "!git commit --fixup `git staged-changes-commit` && GIT_EDITOR=true git rebase -i `git review-base`"
 	hop = "!git stash && git switch ${1--} && git stash pop #"
 	invert-staged = "!git stash-staged && git add . && git stash pop > /dev/null"
@@ -88,6 +89,7 @@
 	process = git-lfs filter-process
 [diff]
 	algorithm = patience
+	ignoreSubmodules = dirty
 [commit]
 	verbose = true
 [rerere]

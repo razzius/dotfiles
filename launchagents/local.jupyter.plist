@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plist>
+  <dict>
+    <key>KeeyAlive</key>
+    <true/>
+    <key>Label</key>
+    <string>local.jupyter.plist</string>
+    <key>ProgramArguments</key>
+    <array>
+      <string>/usr/local/bin/jupyter</string>
+      <string>notebook</string>
+      <string>--no-browser</string>
+      <string>--notebook-dir=~/notebooks</string>
+    </array>
+    <key>RunAtLoad</key>
+    <true/>
+  </dict>
+</plist>
