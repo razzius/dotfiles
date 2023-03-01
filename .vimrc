@@ -85,7 +85,7 @@ autocmd! BufNewFile,BufRead * setlocal formatoptions-=cro
 " Don't show warning when using w!! to write readonly file
 autocmd FileChangedShell * echohl WarningMsg | echo "File changed shell." | echohl None
 
-let mapleader = ' '
+let mapleader = " "
 
 cnoremap <C-A> <Home>
 cnoremap <C-B> <Left>
@@ -252,3 +252,8 @@ augroup Vagrantfile
   autocmd!
   autocmd BufRead,BufNewFile Vagrantfile set ft=ruby
 augroup END
+nnoremap <leader>b :only <bar> :below terminal python3 %<cr><C-w><C-w>
+
+if has('nvim')
+  autocmd TermClose * exe 'bdelete!'
+endif

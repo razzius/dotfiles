@@ -3,8 +3,8 @@
 	email = razzi@abuissa.net
 [push]
 	default = current
-[credential]
-	helper = osxkeychain
+# [credential]
+#	helper = osxkeychain
 [alias]
 	assumed-unchanged = "!git ls-files -v | grep '^[a-z]' | awk '{print $2}'"
 	base = "!echo master"
@@ -58,7 +58,7 @@
 		git stash drop stash@{1} > /dev/null \
 	"
 	stash-unstaged = stash --keep-index --include-untracked
-	stat = status -sb
+	stat = status -sb  # could show if there are stashes
 	switch-to-upstream-branch = "!git fetch origin $1 && git switch $1 #"
 	tree = log --graph --oneline --all
 	to = "!\
@@ -105,3 +105,5 @@
 	version = 2
 [log]
 	date = relative
+[cinnabar]
+	helper = /tmp/tmp8l93oz3v/git-cinnabar-master/git-cinnabar-helper
