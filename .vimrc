@@ -36,6 +36,7 @@ set linebreak
 set list
 set listchars=tab:·\ " Need a comment so trailing space is not eaten
 set mouse=a
+set noshowmode
 set nobackup
 set nomodeline
 set noswapfile
@@ -120,7 +121,8 @@ nnoremap <leader>h :help<space>
 nnoremap <leader>ih :call TrimWhitespace()<cr>Go<cr>###<space>
 nnoremap <leader>q :q<cr>
 nnoremap <leader>Q :q!<cr>
-nnoremap <C-c> ZZ<cr> " This helps in nested vim situations
+" nnoremap <C-c> ZZ<cr> " This helps in nested vim situations
+nnoremap <leader>o :put
 nnoremap <leader>r :source $MYVIMRC <bar> :echom "RELOAD"<cr>
 nnoremap <leader>v <C-v>
 nnoremap <leader>w <C-w>
@@ -257,3 +259,6 @@ nnoremap <leader>b :only <bar> :below terminal python3 %<cr><C-w><C-w>
 if has('nvim')
   autocmd TermClose * exe 'bdelete!'
 endif
+
+set statusline+=%{wordcount().words}\ words
+set laststatus=2    " enables the statusline.

@@ -107,3 +107,5 @@
 	date = relative
 [cinnabar]
 	helper = /tmp/tmp8l93oz3v/git-cinnabar-master/git-cinnabar-helper
+[color]
+	ui = auto
