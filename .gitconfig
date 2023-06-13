@@ -1,0 +1,111 @@
+[user]
+	name = Razzi Abuissa
+	email = razzi@abuissa.net
+[push]
+	default = current
+# [credential]
+#	helper = osxkeychain
+[alias]
+	assumed-unchanged = "!git ls-files -v | grep '^[a-z]' | awk '{print $2}'"
+	base = "!echo master"
+	branch-exists = "!git show-ref --quiet refs/heads/$1 #"
+	branch-names = for-each-ref --format='%(refname:short)' refs/heads
+	branch-updates = for-each-ref --sort='-authordate:iso8601' --format=' %(authordate:relative)%09%(refname:short)' refs/heads
+	cl = clone --depth=1
+	clean-untracked = clean -f -d -X
+	cleanup = !git reset --hard && git clean-untracked && git clean -f
+	clear-reflog= reflog expire --expire=now --all
+	commit-date = "!gdate -d @`git log -1 --format="%at"` -I"
+	commit-id = "!git rev-parse @ | tr -d '\n'"
+	current = rev-parse --abbrev-ref HEAD
+	diff-from-start = "!git diff --color=always --stat $(git hash-object -t tree /dev/null)"
+	deleted-files = diff --name-only --diff-filter=D --cached
+	fallback-to-base = "!if [ -n \"$1\" ]; then echo \"$1\"; else git base; fi #"
+	fetch-rebase = "!git fetch origin && git rebase origin/$(git base)"
+	fixup-amend = "!git commit --fixup `git staged-changes-commit` && GIT_EDITOR=true git rebase -i `git review-base`"
+	hop = "!git stash && git switch ${1--} && git stash pop #"
+	invert-staged = "!git stash-staged && git add . && git stash pop > /dev/null"
+	largest-files = "!git diff-from-start -- \"$1\" | sort -rk 3"  # TODO doesn't work
+	last-branch = "rev-parse --abbrev-ref '@{-1}'"
+	last-commit-message = log -1 --pretty=%B
+	log-stat = "!git log --pretty=format:'%h - %an (%ae): %s' --shortstat"
+	new = diff --cached
+	new-files = diff --name-only --diff-filter=A --cached
+	pull-current = "!git pull origin $(git current)"
+	recommit = commit --amend
+	rename = branch -m
+	repo-name = "!basename $(git remote get-url origin) .git"
+	reset-last = reset @^
+	reset-submodule = submodule update
+	restage = update-index --again
+	review-diff = "!git diff $(git review-base \"$1\") #"
+	review-files = "!git diff --name-only $(git review-base \"$1\") #"
+	review-status = "!git diff --name-status $(git review-base \"$1\") #"
+	review-base = "!git merge-base `git current` $(git fallback-to-base \"$1\") #"
+	root = rev-parse --show-toplevel
+	show-diff = show --pretty=format:%b
+	soft-merge = merge --no-commit --no-ff
+	staged-changes-commit = "!git log -n 1 --pretty=format:%H -- `git diff --cached --name-only`"
+	staged-files = diff --name-only --cached
+	start = !git init && hub create
+	undo-commit = reset --soft @^
+	untracked-files = ls-files --others --exclude-standard
+	stash-staged = "!\
+		git stash-unstaged > /dev/null &&\
+		git stash save > /dev/null &&\
+		git stash apply stash@{1} > /dev/null &&\
+		git stash show -p | git apply -R &&\
+		git stash drop stash@{1} > /dev/null \
+	"
+	stash-unstaged = stash --keep-index --include-untracked
+	stat = status -sb  # could show if there are stashes
+	switch-to-upstream-branch = "!git fetch origin $1 && git switch $1 #"
+	tree = log --graph --oneline --all
+	to = "!\
+		if git branch-exists $1; then \
+			git switch $1; \
+		else \
+			git switch -c $1; \
+		fi \
+	#"
+	unstage = reset HEAD --
+	wdiff = diff --color-words
+	wipe = "!git reset --hard && git clean -fd"
+[core]
+	excludesfile = ~/.gitignore_global
+	pager = less --tabs=4 -RFX
+[pull]
+	rebase = true
+[rebase]
+	stat = true
+	autostash = true
+	autosquash = true
+[stash]
+	showpatch = true
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	required = true
+	process = git-lfs filter-process
+[diff]
+	algorithm = patience
+	ignoreSubmodules = dirty
+[commit]
+	verbose = true
+[rerere]
+	enabled = true
+	autoupdate = true
+[advice]
+	detachedHead = false
+[init]
+	defaultBranch = main
+[includeIf "gitdir:~/work/"]
+	path = .gitconfig-work
+[protocol]
+	version = 2
+[log]
+	date = relative
+[cinnabar]
+	helper = /tmp/tmp8l93oz3v/git-cinnabar-master/git-cinnabar-helper
+[color]
+	ui = auto
