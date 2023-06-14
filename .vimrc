@@ -77,6 +77,10 @@ tnoremap <C-[> <C-@>N
 tnoremap <C-@><space> <C-w><C-w>
 tnoremap <C-@>[ <C-@>N
 tnoremap <C-@><C-i> <C-@>gt
+tnoremap <C-@>" <C-@>:terminal<cr>
+tnoremap <C-@>' <C-@>:terminal<cr>
+tnoremap <C-@>c <C-@>:tab terminal<cr>
+tnoremap <C-@>r <C-@>:source $MYVIMRC <bar> :echom "RELOAD"<cr>
 
 vmap s S
 
