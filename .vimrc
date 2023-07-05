@@ -1,3 +1,4 @@
+syntax on
 filetype plugin indent on
 
 highlight Search cterm=NONE ctermfg=grey ctermbg=blue
