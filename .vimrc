@@ -44,6 +44,11 @@ nnoremap <C-c> ZZ<cr> " This helps in nested vim situations
 nnoremap <C-h> <C-w>h
 nnoremap <C-l> <C-w>l
 nnoremap <C-@>c :tab ter<cr>
+nnoremap <C-@>' :terminal<cr>
+nnoremap <C-@>" :terminal<cr>
+nnoremap <C-@>% :vert terminal<cr>
+nnoremap <C-@><space> <c-w><c-p>
+nnoremap <C-@>c :tab ter<cr>
 nnoremap <C-@>h <C-w>h
 nnoremap <C-@>l <C-w>l
 nnoremap - ddp
@@ -74,14 +79,15 @@ nnoremap q<leader> :q<cr>
 nnoremap <silent> <leader><esc> :bprevious<CR>:bdelete #<CR>
 nnoremap <silent> <leader>fr :browse oldfiles<cr>
 
-tnoremap <C-[> <C-@>N
-tnoremap <C-@><space> <C-w><C-w>
-tnoremap <C-@>[ <C-@>N
+tnoremap <C-@>c <C-@>:tab terminal<cr>
 tnoremap <C-@><C-i> <C-@>gt
+tnoremap <C-@>[ <C-@>N
+tnoremap <C-[> <C-@>N
 tnoremap <C-@>" <C-@>:terminal<cr>
 tnoremap <C-@>' <C-@>:terminal<cr>
-tnoremap <C-@>c <C-@>:tab terminal<cr>
+tnoremap <C-@>% <C-@>:vert terminal<cr>
 tnoremap <C-@>r <C-@>:source $MYVIMRC <bar> :echom "RELOAD"<cr>
+tnoremap <C-@><space> <C-@><C-p>
 
 vmap s S
 
@@ -142,3 +148,13 @@ endfunction
 
 autocmd VimEnter * call ConfigCamelCase()
 
+if executable('pylsp')
+    " pip install python-lsp-server
+    au User lsp_setup call lsp#register_server({
+        \ 'name': 'pylsp',
+        \ 'cmd': {server_info->['pylsp']},
+        \ 'allowlist': ['python'],
+        \ })
+endif
+
+let g:lsp_document_highlight_enabled = 0
