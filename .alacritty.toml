@@ -1,0 +1,7 @@
+[font]
+size = 16.0
+
+[[keyboard.bindings]]
+action = "Paste"
+key = "V"
+mods = "alt"
