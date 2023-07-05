@@ -5,3 +5,8 @@ size = 16.0
 action = "Paste"
 key = "V"
 mods = "alt"
+
+[[keyboard.bindings]]
+action = "Copy"
+key = "C"
+mods = "alt"
