@@ -14,6 +14,10 @@ set hlsearch
 set ignorecase
 set incsearch
 set linebreak
+
+" Disable swap files, editors crashing doesn't lose much data
+set noswapfile
+
 set shiftwidth=2
 set smartcase
 set smartindent
@@ -21,8 +25,6 @@ set smarttab
 set splitbelow
 set splitright
 set tabstop=2
-set termwinkey=<C-@>
-
 
 noremap <C-@><C-@> <C-w><C-w>
 noremap <C-@><leader> <C-w><C-w>
@@ -74,20 +76,25 @@ nnoremap <leader>' :terminal<cr>
 nnoremap <leader>v <C-v>
 nnoremap <leader>% :vertical terminal<cr>
 nnoremap <leader>w <C-w>
-nnoremap _ :m .-2<CR>
+nnoremap _ :m .-2<cr>
 nnoremap q<leader> :q<cr>
-nnoremap <silent> <leader><esc> :bprevious<CR>:bdelete #<CR>
+nnoremap <silent> <leader><esc> :bprevious<cr>:bdelete #<cr>
 nnoremap <silent> <leader>fr :browse oldfiles<cr>
 
-tnoremap <C-@>c <C-@>:tab terminal<cr>
-tnoremap <C-@><C-i> <C-@>gt
-tnoremap <C-@>[ <C-@>N
-tnoremap <C-[> <C-@>N
-tnoremap <C-@>" <C-@>:terminal<cr>
-tnoremap <C-@>' <C-@>:terminal<cr>
 tnoremap <C-@>% <C-@>:vert terminal<cr>
-tnoremap <C-@>r <C-@>:source $MYVIMRC <bar> :echom "RELOAD"<cr>
+tnoremap <C-@>' <C-@>:terminal<cr>
+
+" shouldn't really use this, but muscle memory
+tnoremap <C-@>" <C-@>:terminal<cr>
+
+tnoremap <C-@><C-i> <C-@>gt
 tnoremap <C-@><space> <C-@><C-p>
+tnoremap <C-@>[ <C-@>N
+tnoremap <C-@>c <C-@>:tab terminal<cr>
+tnoremap <C-@>r <C-@>:source $MYVIMRC <bar> :echom "RELOAD"<cr>
+tnoremap <C-[> <C-@>N
+tnoremap <esc>v <C-@>"+
+
 
 vmap s S
 
@@ -117,7 +124,7 @@ cnoremap <C-t> <C-f>$Xp<C-c><right><C-l>
 cnoremap <C-up> <C-f>
 cnoremap <Esc>b <S-Left>
 cnoremap <Esc>f <S-Right>
-      \ '' : getcmdline()[:getcmdpos()-2]<CR>
+      \ '' : getcmdline()[:getcmdpos()-2]<cr>
 
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
@@ -158,3 +165,19 @@ if executable('pylsp')
 endif
 
 let g:lsp_document_highlight_enabled = 0
+
+if has('nvim')
+  autocmd TermOpen * startinsert
+endif
+
+if !has('nvim')
+  set termwinkey=<C-@>
+endif
+
+function Tapi_TabEdit(bufnum, arglist)
+  execute 'tabedit' a:arglist[0]
+endfunc
+
+" function Tapi_TerminalEdit(bufnum, arglist)
+"   execute 'tabedit' a:arglist[0]
+" endfunc
