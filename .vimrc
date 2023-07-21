@@ -5,15 +5,21 @@ highlight Search cterm=NONE ctermfg=grey ctermbg=blue
 
 let mapleader = ' '
 set autoindent
+set autoshelldir
 set clipboard=unnamedplus
 set expandtab
 set foldlevelstart=99
 set foldmethod=syntax
 set gdefault
+
+" Allows hidden buffers
+set hidden
+
 set hlsearch
 set ignorecase
 set incsearch
 set linebreak
+set mouse=a
 
 " Disable swap files, editors crashing doesn't lose much data
 set noswapfile
@@ -29,6 +35,7 @@ set tabstop=2
 noremap <C-@><C-@> <C-w><C-w>
 noremap <C-@><leader> <C-w><C-w>
 nnoremap <C-@><Tab> gt
+nnoremap <Tab> gt
 nnoremap <C-@><S-Tab> gT
 noremap <C-@>h <C-w>h
 noremap <C-@>j <C-w>j
@@ -47,7 +54,7 @@ nnoremap <C-h> <C-w>h
 nnoremap <C-l> <C-w>l
 nnoremap <C-@>c :tab ter<cr>
 nnoremap <C-@>' :terminal<cr>
-nnoremap <C-@>" :terminal<cr>
+" nnoremap <C-@>" :terminal<cr>
 nnoremap <C-@>% :vert terminal<cr>
 nnoremap <C-@><space> <c-w><c-p>
 nnoremap <C-@>c :tab ter<cr>
@@ -61,12 +68,11 @@ nnoremap k gk
 nnoremap <leader>, A,<esc>
 nnoremap <leader>fi :e ~/.vimrc<cr>
 nnoremap <leader>h :help<space>
-nnoremap <leader>ih :call TrimWhitespace()<cr>Go<cr>###<space>
 nnoremap <leader><leader> :w<cr>
 nnoremap [<leader> O<ESC>j
 nnoremap ]<leader> o<ESC>k
 nnoremap <leader>o o<esc>P
-nnoremap <leader>q :q<cr>
+nnoremap <leader>q :bd<cr>
 nnoremap <leader>Q :q!<cr>
 nnoremap <leader><return> :nohlsearch<cr>
 nnoremap <leader>r :source $MYVIMRC <bar> :echom "RELOAD"<cr>
@@ -94,7 +100,6 @@ tnoremap <C-@>c <C-@>:tab terminal<cr>
 tnoremap <C-@>r <C-@>:source $MYVIMRC <bar> :echom "RELOAD"<cr>
 tnoremap <C-[> <C-@>N
 tnoremap <esc>v <C-@>"+
-
 
 vmap s S
 
@@ -129,7 +134,7 @@ cnoremap <Esc>f <S-Right>
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
 
-" allow writing "readonly files" after having some visual indication that the file is readonly
+" feature idea: allow writing "readonly files" after having some visual indication that the file is readonly
 
 nnoremap <leader>b :only <bar> :below terminal python3 %<cr><C-w><C-w>
 
@@ -178,6 +183,6 @@ function Tapi_TabEdit(bufnum, arglist)
   execute 'tabedit' a:arglist[0]
 endfunc
 
-" function Tapi_TerminalEdit(bufnum, arglist)
-"   execute 'tabedit' a:arglist[0]
-" endfunc
+function Tapi_TerminalEdit(bufnum, arglist)
+  execute 'edit' a:arglist[0]
+endfunc
