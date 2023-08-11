@@ -5,7 +5,6 @@ highlight Search cterm=NONE ctermfg=grey ctermbg=blue
 
 let mapleader = ' '
 set autoindent
-set autoshelldir
 set clipboard=unnamedplus
 set expandtab
 set foldlevelstart=99
@@ -20,6 +19,7 @@ set ignorecase
 set incsearch
 set linebreak
 set mouse=a
+set undofile
 
 " Disable swap files, editors crashing doesn't lose much data
 set noswapfile
@@ -72,7 +72,7 @@ nnoremap <leader><leader> :w<cr>
 nnoremap [<leader> O<ESC>j
 nnoremap ]<leader> o<ESC>k
 nnoremap <leader>o o<esc>P
-nnoremap <leader>q :bd<cr>
+nnoremap <leader>q :q<cr>
 nnoremap <leader>Q :q!<cr>
 nnoremap <leader><return> :nohlsearch<cr>
 nnoremap <leader>r :source $MYVIMRC <bar> :echom "RELOAD"<cr>
@@ -139,12 +139,6 @@ let g:UltiSnipsJumpForwardTrigger="<tab>"
 nnoremap <leader>b :only <bar> :below terminal python3 %<cr><C-w><C-w>
 
 
-if !isdirectory($HOME . "/.vim/undo")
-    call mkdir($HOME . "/.vim/undo", "p", 0700)
-endif
-set undodir=~/.vim/undo
-set undofile
-
 function! ConfigCamelCase()
     if &rtp =~ 'CamelCaseMotion'
         map <silent> w <Plug>CamelCaseMotion_w
@@ -173,10 +167,21 @@ let g:lsp_document_highlight_enabled = 0
 
 if has('nvim')
   autocmd TermOpen * startinsert
+  let undofolder = '$HOME' . '.config/nvim/undo'
+  if !isdirectory(undofolder)
+    call mkdir(undofolder, "p", 0700)
+  endif
+  set undodir=~/.config/nvim/undo
 endif
 
 if !has('nvim')
   set termwinkey=<C-@>
+  set autoshelldir
+
+  if !isdirectory($HOME . "/.vim/undo")
+    call mkdir($HOME . "/.vim/undo", "p", 0700)
+  endif
+  set undodir=~/.vim/undo
 endif
 
 function Tapi_TabEdit(bufnum, arglist)
