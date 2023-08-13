@@ -1,6 +1,10 @@
 syntax on
 filetype plugin indent on
 
+if !empty($VIM_TERMINAL)
+  echom "Vim is nested in vim terminal, you don't want this"
+endif
+
 highlight Search cterm=NONE ctermfg=grey ctermbg=blue
 
 let mapleader = ' '
@@ -69,6 +73,8 @@ nnoremap <leader>, A,<esc>
 nnoremap <leader>fi :e ~/.vimrc<cr>
 nnoremap <leader>h :help<space>
 nnoremap <leader><leader> :w<cr>
+
+" TODO messes up when used on commented line (try it on this one :)
 nnoremap [<leader> O<ESC>j
 nnoremap ]<leader> o<ESC>k
 nnoremap <leader>o o<esc>P
@@ -86,6 +92,7 @@ nnoremap _ :m .-2<cr>
 nnoremap q<leader> :q<cr>
 nnoremap <silent> <leader><esc> :bprevious<cr>:bdelete #<cr>
 nnoremap <silent> <leader>fr :browse oldfiles<cr>
+nnoremap <esc>v <C-@>"+
 
 tnoremap <C-@>% <C-@>:vert terminal<cr>
 tnoremap <C-@>' <C-@>:terminal<cr>
@@ -93,13 +100,18 @@ tnoremap <C-@>' <C-@>:terminal<cr>
 " shouldn't really use this, but muscle memory
 tnoremap <C-@>" <C-@>:terminal<cr>
 
+noremap <C-@>r <C-@>:source $MYVIMRC <bar> :echom "RELOAD"<cr>
+noremap <C-@>v <C-@>:tabe $MYVIMRC<cr>
+
 tnoremap <C-@><C-i> <C-@>gt
-tnoremap <C-@><space> <C-@><C-p>
 tnoremap <C-@>[ <C-@>N
 tnoremap <C-@>c <C-@>:tab terminal<cr>
-tnoremap <C-@>r <C-@>:source $MYVIMRC <bar> :echom "RELOAD"<cr>
 tnoremap <C-[> <C-@>N
 tnoremap <esc>v <C-@>"+
+
+" TODO implement tab stack
+tnoremap <C-@><space> <C-@>:tabnext<cr>
+nnoremap <C-@><space> <C-@>:tabnext<cr> " TODO implement tab stack
 
 vmap s S
 
