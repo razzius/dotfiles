@@ -179,7 +179,7 @@ let g:lsp_document_highlight_enabled = 0
 
 if has('nvim')
   autocmd TermOpen * startinsert
-  let undofolder = '$HOME' . '.config/nvim/undo'
+  let undofolder = $HOME . '.config/nvim/undo'
   if !isdirectory(undofolder)
     call mkdir(undofolder, "p", 0700)
   endif
