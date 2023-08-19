@@ -36,6 +36,9 @@ set splitbelow
 set splitright
 set tabstop=2
 
+" Allow backspace in insert mode to go outside of the inserted region
+set backspace=indent,eol,start
+
 noremap <C-@><C-@> <C-w><C-w>
 noremap <C-@><leader> <C-w><C-w>
 nnoremap <C-@><Tab> gt
