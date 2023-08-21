@@ -15,6 +15,9 @@ set foldlevelstart=99
 set foldmethod=syntax
 set gdefault
 
+" Make editing files start in the same dir as the current file
+set autochdir
+
 " Allows hidden buffers
 set hidden
 
@@ -53,6 +56,7 @@ inoremap <C-]> <C-q><TAB>
 inoremap <C-k> <C-o>D
 inoremap <C-l> <C-x><C-l>
 inoremap <C-t> <esc>hxpa
+inoremap <esc>v <C-r>+
 
 nnoremap ^ 0
 nnoremap 0 ^
@@ -76,6 +80,7 @@ nnoremap <leader>, A,<esc>
 nnoremap <leader>fi :e ~/.vimrc<cr>
 nnoremap <leader>h :help<space>
 nnoremap <leader><leader> :w<cr>
+nnoremap <leader>f<space> :let @+ = expand("%")<cr>
 
 " TODO messes up when used on commented line (try it on this one :)
 nnoremap [<leader> O<ESC>j
@@ -114,7 +119,7 @@ tnoremap <esc>v <C-@>"+
 
 " TODO implement tab stack
 tnoremap <C-@><space> <C-@>:tabnext<cr>
-nnoremap <C-@><space> <C-@>:tabnext<cr> " TODO implement tab stack
+nnoremap <C-@><space> <C-@>:tabnext<cr>
 
 vmap s S
 
@@ -182,7 +187,7 @@ let g:lsp_document_highlight_enabled = 0
 
 if has('nvim')
   autocmd TermOpen * startinsert
-  let undofolder = $HOME . '.config/nvim/undo'
+  let undofolder = $HOME . '/.config/nvim/undo'
   if !isdirectory(undofolder)
     call mkdir(undofolder, "p", 0700)
   endif
@@ -206,3 +211,14 @@ endfunc
 function Tapi_TerminalEdit(bufnum, arglist)
   execute 'edit' a:arglist[0]
 endfunc
+
+" Don't continue comments by default, opening or hitting return
+autocmd BufNewFile,BufRead * setlocal formatoptions-=ro
+
+
+augroup lsp_install
+  au!
+  nmap <buffer> g] <plug>(lsp-definition)
+  nmap <buffer> <leader>en <plug>(lsp-next-diagnostic)
+  nmap <buffer> <leader>ep <plug>(lsp-previous-diagnostic)
+augroup END
