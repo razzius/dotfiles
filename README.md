@@ -1,14 +1,18 @@
 # keyd
 
 ```
-sudo ln -s (pwd)/keyd_default.conf /etc/keyd/default.conf
+$ sudo ln -s (pwd)/keyd_default.conf /etc/keyd/default.conf
 ```
 
 # rg
 
 ```
-ln -s (pwd)/.rgrc $HOME/.rgrc
+$ ln -s (pwd)/.rgrc $HOME/.rgrc
 
 # Set in .profile
 export RIPGREP_CONFIG_PATH=$HOME/.rgrc
 ```
+
+# vim
+
+See https://git.sr.ht/~razzi/.vim
