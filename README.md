@@ -13,6 +13,12 @@ $ ln -s (pwd)/.rgrc $HOME/.rgrc
 export RIPGREP_CONFIG_PATH=$HOME/.rgrc
 ```
 
+# sway
+
+```
+ln -s (pwd)/sway.conf ~/.config/sway/config
+```
+
 # vim
 
 See https://git.sr.ht/~razzi/.vim
