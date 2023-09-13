@@ -3,8 +3,6 @@
 	email = razzi@abuissa.net
 [push]
 	default = current
-# [credential]
-#	helper = osxkeychain
 [alias]
 	assumed-unchanged = "!git ls-files -v | grep '^[a-z]' | awk '{print $2}'"
 	base = "!echo master"
@@ -29,6 +27,10 @@
 	last-branch = "rev-parse --abbrev-ref '@{-1}'"
 	last-commit-message = log -1 --pretty=%B
 	log-stat = "!git log --pretty=format:'%h - %an (%ae): %s' --shortstat"
+  make-shallow = "!git show-ref -s HEAD > .git/shallow &&\
+    git reflog expire --expire=0 &&\
+    git prune &&\
+    git prune-packed"
 	new = diff --cached
 	new-files = diff --name-only --diff-filter=A --cached
 	pull-current = "!git pull origin $(git current)"
@@ -58,8 +60,8 @@
 		git stash drop stash@{1} > /dev/null \
 	"
 	stash-unstaged = stash --keep-index --include-untracked
-	stat = status -sb  # could show if there are stashes
-	switch-to-upstream-branch = "!git fetch origin $1 && git switch -c $1 FETCH_HEAD #"
+	stat = status -sb
+	switch-to-upstream-branch = "!git fetch origin $1 && git switch $1 #"
 	tree = log --graph --oneline --all
 	to = "!\
 		if git branch-exists $1; then \
@@ -105,7 +107,3 @@
 	version = 2
 [log]
 	date = relative
-[cinnabar]
-	helper = /tmp/tmp8l93oz3v/git-cinnabar-master/git-cinnabar-helper
-[color]
-	ui = auto
