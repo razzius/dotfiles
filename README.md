@@ -22,3 +22,12 @@ ln -s (pwd)/sway.conf ~/.config/sway/config
 # vim
 
 See https://git.sr.ht/~razzi/.vim
+
+# fish
+
+Uses https://git.sr.hut/~razzi/fish-functions.
+
+```
+$ git clone https://git.sr.ht/~razzi/fish-functions ~/.config/fish
+$ symlink fish_config.d ~/.config/fish/conf.d
+```
