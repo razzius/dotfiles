@@ -31,3 +31,9 @@ Uses https://git.sr.hut/~razzi/fish-functions.
 $ git clone https://git.sr.ht/~razzi/fish-functions ~/.config/fish
 $ symlink fish_config.d ~/.config/fish/conf.d
 ```
+
+# kitty
+
+```
+ln -s kitty.conf ~/.config/kitty/kitty.conf
+```
