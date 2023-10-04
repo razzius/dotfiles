@@ -35,5 +35,11 @@ $ symlink fish_config.d ~/.config/fish/conf.d
 # kitty
 
 ```
-ln -s kitty.conf ~/.config/kitty/kitty.conf
+ln -s $(pwd)/kitty.conf ~/.config/kitty/kitty.conf
+```
+
+# tmux
+
+```
+ln -s $(pwd)/.tmux.conf ~/
 ```
