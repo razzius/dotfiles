@@ -1,5 +1,6 @@
 abbr -a -- - "cd -"
 abbr -a -- .c "./configure"
+abbr -a -- .s  "~/.dotfiles"
 abbr -a -- .v "~/.vim"
 abbr -a -- / "search"
 abbr -a -- 1 "npx @11ty/eleventy"
