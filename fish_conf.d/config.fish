@@ -29,6 +29,8 @@ bind \cw backward-kill-bigword
 # Bind paste using function to avoid 'clone-cd git clone'
 bind \cv paste_avoiding_double_git_clone
 bind \ev paste_avoiding_double_git_clone
+# kitty keyboard protocol alt+v
+bind \u00F6 paste_avoiding_double_git_clone
 
 set -Ua fish_features ampersand-nobg-in-token,qmark-noglob
 
