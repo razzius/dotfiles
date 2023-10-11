@@ -1,5 +1,6 @@
 abbr -a -- - "cd -"
 abbr -a -- .c "./configure"
+abbr -a -- .e  "~/.emacs.d"
 abbr -a -- .s  "~/.dotfiles"
 abbr -a -- .v "~/.vim"
 abbr -a -- / "search"
