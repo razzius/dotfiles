@@ -1,7 +1,9 @@
 # keyd
 
 ```
-$ sudo ln -s (pwd)/keyd_default.conf /etc/keyd/default.conf
+$ sudo ln -s (pwd)/keyd_config/common /etc/keyd/
+$ sudo ln -s (pwd)/keyd_config/default.conf /etc/keyd/
+$ sudo ln -s (pwd)/keyd_config/magic_keyboard.conf /etc/keyd/
 ```
 
 # rg
