@@ -32,7 +32,7 @@ bind \ev paste_avoiding_double_git_clone
 # kitty keyboard protocol alt+v
 bind \u00F6 paste_avoiding_double_git_clone
 
-set -Ua fish_features ampersand-nobg-in-token,qmark-noglob
+set -U fish_features ampersand-nobg-in-token,qmark-noglob
 
 test -e ~/.profile && source ~/.profile
 
