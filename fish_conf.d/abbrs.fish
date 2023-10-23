@@ -262,3 +262,4 @@ abbr -a -- yb "yarn build"
 abbr -a -- ys "yarn start"
 abbr -a -- zz "~/forks/razzi.abuissa.net"
 abbr -a --position anywhere -- --ver --version
+abbr -a --set-cursor rmw 'remove (which %)'
